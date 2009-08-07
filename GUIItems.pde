@@ -32,7 +32,6 @@ class ItemBox{
 
       buildingButtons[i].draw(); 
     }
-    //    rect(x, y, boxWidth, boxHeight);
   }
 
 }

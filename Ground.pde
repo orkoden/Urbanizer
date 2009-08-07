@@ -50,19 +50,28 @@ class Ground{
 
   void dropped(Building draggedBuilding){
     //calculate array coordinates from mouse coordinates
-    if (mouseY > height -10)  // check for lower bound
-      return;
-    if (mouseY < height - 10 - gridSizeY* gridspacing)  // check for upper bound
-      return;
-    int yPos = (mouseY - (height - 10 - gridSizeY* gridspacing))/gridspacing;
-    
+    /*if (mouseY > height -10)  // check for lower bound
+     return;
+     if (mouseY < height - 10 - gridSizeY* gridspacing)  // check for upper bound
+     return;
+     */
+    // height - 10 - (j+1)* gridspacing = Y
+    int yPos = ((mouseY - height + 10 )/ -gridspacing) ;
+    /*
     if (mouseX < 10)    // check left bound
+     return;
+     if (mouseX > yPos*10 + (gridSizeX)*gridspacing + 10)  // check max right bound
+     return;
+     */
+    // j*slant + (i+1)*gridspacing + 10 = X
+    int xPos = ((mouseX -10 - yPos * slant) / gridspacing); 
+    //int xPos = (mouseX - yPos*10 )/gridspacing;
+    //yPos = gridSizeY -yPos;
+
+    if (yPos < 0 || xPos < 0 || yPos >= gridSizeY || xPos >= gridSizeX)
       return;
-    if (mouseX > yPos*10 + (gridSizeX)*gridspacing + 10)  // check max right bound
-      return;
-    int xPos = (mouseX - yPos*10 )/gridspacing;
-    yPos = gridSizeY -yPos -1;
-    println("building dropped at x: "+xPos+" y: "+yPos);
+
+    println("building "+draggedBuilding.name+" dropped at x: "+xPos+" y: "+yPos);
 
     if(grid[xPos][yPos].isEmpty)  // check if field is available
       grid[xPos][yPos].setBuilding(draggedBuilding);  // drop building
@@ -83,6 +92,7 @@ class GridField{
     this.isEmpty = false;
   }
 }
+
 
 
 
