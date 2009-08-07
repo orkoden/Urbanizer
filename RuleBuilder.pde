@@ -2,12 +2,14 @@
 ItemBox itemBox;
 Building draggedBuilding;
 Ground ground;
+Building[] buildingPlans;  // store building templates
 
 void setup()
 {
   size(800,500);
   smooth();  
   background(20);
+  buildingsFromFile();    // read from file
   itemBox = new ItemBox(80);
   ground = new Ground(10,4,60);
   //button = new Button(10,10);
@@ -22,6 +24,7 @@ void draw()
   itemBox.draw();
   try{
     //   println("draggin"+draggedBuilding.name);
+    draggedBuilding.setCenter(mouseX,mouseY);
     draggedBuilding.draw();
   }
   catch(Exception ex){
@@ -29,19 +32,11 @@ void draw()
 
 }
 
-void mouseDragged(){
-  try{
-
-    draggedBuilding.setCenter(mouseX,mouseY);
-  }  
-  catch(Exception ex){
-  }
-}
 
 void mouseReleased(){
   // check if bulding can be put here
   ground.dropped(draggedBuilding);
-  draggedBuilding = null;  // no building dragged anymore
+  draggedBuilding = null;          // no building dragged anymore
 }
 
 

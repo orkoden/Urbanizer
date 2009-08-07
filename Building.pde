@@ -12,9 +12,14 @@ class Building{
   Building(){
     name = "unnamed Building";
     buildingShape = loadShape("bot1.svg");
-   
+
   }
 
+  Building(String[] fromFile){
+    name = fromFile[0];
+    buildingShape = loadShape(fromFile[1]);
+
+  }
 
   Building(String name, PShape buildingShape){
     this.name=name;
@@ -25,14 +30,23 @@ class Building{
     this.y = y-sizeY/2;
   }  
 
+  Building clone(){
+    Building clone = new Building();
+    clone.x = x;
+    clone.y = y;
+    clone.sizeX=sizeX;
+    clone.sizeY=sizeY;
+    clone.buildingShape = buildingShape;
+    clone.name = name;
+    return clone;
+  }
+
   void draw(){
     shape(buildingShape,x,y,sizeX,sizeY);
   } 
 
-  // list to store building names, attributes and graphics
-  // best to save it in an extra file. then we need file io -> example2
-
 }
+
 
 
 

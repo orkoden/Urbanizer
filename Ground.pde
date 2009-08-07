@@ -3,6 +3,7 @@ class Ground{
   int gridSizeX;
   int gridSizeY;
   int gridspacing;  // determines field sizes
+  int slant = 10;   // how schief shall the grid be?
 
   Ground(){
     this(6,2, 30);
@@ -31,16 +32,16 @@ class Ground{
       for( int j=0; j < gridSizeY; j++){
 
         // draw empty grid, vertices anticlockwise
-        quad(j*10 + i*gridspacing ,   height - 10 - j* gridspacing,       // vertex 1 unten links
-        j*10 + (i+1)*gridspacing,     height - 10 - j* gridspacing,       // vertex 2 unten rechts
-        j*10 + (i+1)*gridspacing + 10,height - 10 - (j+1)* gridspacing,   // vertex 4 oben rechts
-        j*10 + i*gridspacing + 10,    height - 10 - (j+1)* gridspacing    // vertex 3 oben links
+        quad(j*slant + i*gridspacing ,   height - 10 - j* gridspacing,       // vertex 1 unten links
+        j*slant + (i+1)*gridspacing,     height - 10 - j* gridspacing,       // vertex 2 unten rechts
+        j*slant + (i+1)*gridspacing + 10,height - 10 - (j+1)* gridspacing,   // vertex 4 oben rechts
+        j*slant + i*gridspacing + 10,    height - 10 - (j+1)* gridspacing    // vertex 3 oben links
         );
 
         // draw built fields
         if(grid[i][j].isEmpty == false){
           shape(grid[i][j].building.buildingShape,
-          j*10 + i*gridspacing + 10,    height - 10 - (j+1)* gridspacing,
+          j*slant + i*gridspacing + 10,    height - 10 - (j+1)* gridspacing,
           gridspacing,gridspacing);  
         }
       }
@@ -64,7 +65,7 @@ class Ground{
     println("building dropped at x: "+xPos+" y: "+yPos);
 
     if(grid[xPos][yPos].isEmpty)  // check if field is available
-      grid[(mouseX-10)%gridSizeX][(mouseY-10)%gridSizeY].setBuilding(draggedBuilding);  // drop building
+      grid[xPos][yPos].setBuilding(draggedBuilding);  // drop building
   }
 
 }
@@ -79,7 +80,7 @@ class GridField{
 
   void setBuilding(Building building){
     this.building = building;
-    isEmpty = false;
+    this.isEmpty = false;
   }
 }
 
