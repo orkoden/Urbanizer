@@ -15,17 +15,17 @@ class ItemBox{
   ItemBox(int buttonSize){
     this.buttonSize=buttonSize;
 
-    boxWidth = buttonSize *2;
+    boxWidth = buttonSize;
     x= width -10 - boxWidth;
     numberOfBuildingButtons = buildingPlans.length;
-    boxHeight = buttonSize * numberOfBuildingButtons/2;
+    boxHeight = buttonSize * numberOfBuildingButtons;
     buildingButtons = new Button[numberOfBuildingButtons];
 
-    for( int i= 0; i < numberOfBuildingButtons/2; i++){  // zeilen
-      for( int j= 0; j<2; j++){                          // spalten
-        buildingButtons[i*2+j] = new BuildingButton(x+j*buttonSize,y+buttonSize*i, buttonSize, buildingPlans[i*2+j]);
+    for( int i= 0; i < numberOfBuildingButtons; i++){  // zeilen
+//      for( int j= 0; j<1; j++){                          // spalten
+        buildingButtons[i] = new BuildingButton(x,y+buttonSize*i, buttonSize, buildingPlans[i]);
       }
-    }
+//    }
   }
   void draw(){
     for( int i= 0; i < numberOfBuildingButtons; i++){  // draw all buttons
@@ -105,7 +105,7 @@ class BuildingButton extends Button{
   void draw(){
     super.draw();
     // println("Drawing: " + building.name);
-    shape(building.buildingShape,x,y,buttonSize,buttonSize);
+    shape(building.buildingShape,x+5,y+5,buttonSize-5,buttonSize-5);
   }
   
   void update(){

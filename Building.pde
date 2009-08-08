@@ -1,6 +1,6 @@
 /**
-Represents one Building with Attributes.
-*/
+ * Represents one Building with Attributes.
+ */
 class Building{
   Building[] buildingTypes;
 
@@ -8,11 +8,16 @@ class Building{
   int y=0;
   int sizeX=120;    //vistible size. should be calculated from fieldsize in grid * fieldsX
   int sizeY=120;
+
+  int gridUnit = 20;
+
   PShape buildingShape;
   String name;
   //possible attributes
   int fieldsX = 1;  // the number of fields this building covers in x and y direction
   int fieldsY = 1;
+
+  int buildHeight = 1;
 
   Building(){
     name = "unnamed Building";
@@ -21,9 +26,14 @@ class Building{
   }
 
   Building(String[] fromFile){
-    name = fromFile[0];
-    buildingShape = loadShape(fromFile[1]);
-
+    this.name = fromFile[0];
+    this.buildingShape = loadShape(fromFile[1]);
+    this.fieldsX = int(fromFile[2]);
+    this.fieldsY = int(fromFile[3]);
+    this.buildHeight = int(fromFile[4]);
+    sizeX =fieldsX *gridUnit;
+    sizeY = buildHeight*gridUnit;
+    println("new building constructed name: "+ this.name + " fieldsX: "+ this.fieldsX + " fieldsY: "+ this.fieldsY + " height: "+this.buildHeight);
   }
 
   Building(String name, PShape buildingShape){
@@ -47,10 +57,16 @@ class Building{
   }
 
   void draw(){
-    shape(buildingShape,x,y,sizeX,sizeY);
-  } 
+    //    stroke(200);
+    //  fill(50);
+  //  shape(buildingShape,x,y,sizeX,sizeY);
+  shape(buildingShape,x,y);
+    } 
 
 }
+
+
+
 
 
 
