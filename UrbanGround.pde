@@ -3,12 +3,22 @@ class UrbanGround{
   UrbanStrip[] strips;
   int numberOfStrips = 93;
   int gridSize = 8;
-  
+
   // offsets for the geometry
-  double offsetXAxis;
-  double offsetYAxis;
-  
+  float[] xAxisRotate;  // multiply x and y by this
+  float[] yAxisRotate;  // 
+
+
+
   UrbanGround(){
+    xAxisRotate = new float[2];
+    yAxisRotate = new float[2];
+    xAxisRotate[1] = tan(TWO_PI/16);
+    xAxisRotate[0] = 1/cos(TWO_PI/16);
+    yAxisRotate[0] = tan(TWO_PI/16);
+    yAxisRotate[1] = 1/cos(TWO_PI/16);
+
+
     strips = new UrbanStrip[93];
     int currentStripLength= 0;
     for ( int i = 0; i< strips.length ; i++){
@@ -26,8 +36,8 @@ class UrbanGround{
         currentStripLength = 8;
       else if (i<77)
         currentStripLength = 13;
- //     else if (i < 79)
- //       currentStripLength = 22;
+      //     else if (i < 79)
+      //       currentStripLength = 22;
       else if (i<93){
         currentStripLength =(int)round( (92-i)*(8.0/16) +14);
       }
@@ -47,10 +57,10 @@ class UrbanGround{
     fill(100);
 
     for ( int i = 0; i< strips.length ; i++){
-      quad(i*gridSize,0,    // top left corner
-      (1+i)*gridSize,0,    // top right corner
-      (1+i)*gridSize,strips[i].stripLength*gridSize,  // lower right corner
-      i*gridSize,strips[i].stripLength*gridSize        // lower left corner
+      quad(xAxisRotate[0]*i*gridSize,  xAxisRotate[1]*i,    // top left corner
+      xAxisRotate[0]*(1+i)*gridSize,  xAxisRotate[1]*i,    // top right corner
+      xAxisRotate[0]*(1+i)*gridSize,  xAxisRotate[1]*i+strips[i].stripLength*gridSize,  // lower right corner
+      xAxisRotate[0]*i*gridSize,  xAxisRotate[1]*i+strips[i].stripLength*gridSize        // lower left corner
 
       );
     }
@@ -74,6 +84,7 @@ class UrbanStrip{
 
   }
 }
+
 
 
 
