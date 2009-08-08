@@ -1,0 +1,8 @@
+﻿#name	grafik		x	y	h	jaja
+Turm	Turm.svg	4	4	10	einzeln
+Scheibe	Scheibe.svg	2	1	6	reihe
+Block	Block.svg	5	7	4	strecken
+Patio	Patio.svg	4	3	1	reihe
+Reihe	Reihe.svg	2	1	2	reihe
+Frei	Frei.svg	4	4	1	reihe
+Box	Box.svg	8	8	2	strecken

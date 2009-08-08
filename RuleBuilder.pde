@@ -4,14 +4,18 @@ Building draggedBuilding;
 Ground ground;
 Building[] buildingPlans;  // store building templates
 
+UrbanGround urbanGround;
+
 void setup()
 {
-  size(1024,500);
+  size(1024,768);
   smooth();  
   background(20);
   buildingsFromFile();    // read from file
   itemBox = new ItemBox(80);
-  ground = new Ground(10,5,60);
+
+  urbanGround = new UrbanGround();
+  // ground = new Ground(10,5,60);
   //button = new Button(10,10);
 }
 
@@ -19,9 +23,9 @@ void setup()
 void draw()
 {
   background(20);
-
-  ground.draw();
-  itemBox.draw();
+  urbanGround.display();
+  // ground.draw();
+  //itemBox.draw();
   try{
     //   println("draggin"+draggedBuilding.name);
     draggedBuilding.setCenter(mouseX,mouseY);
@@ -36,7 +40,7 @@ void draw()
 void mouseReleased(){
   if(draggedBuilding != null){  // if a building is being dragged
     // check if bulding can be put here
-    ground.dropped(draggedBuilding);
+//    ground.dropped(draggedBuilding);
     draggedBuilding = null;          // no building dragged anymore
   }
 }
@@ -44,7 +48,7 @@ void mouseReleased(){
 
 void mouseDragged(){
   try{
-    ground.mouseOverField();
+//    ground.mouseOverField();
   }
   catch(Exception e){
   }
@@ -56,6 +60,7 @@ void keyPressed(){
   if (key == 's')  // press s to save current image to file
     saveFrame("construction_site_###.png"); 
 }
+
 
 
 
