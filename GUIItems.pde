@@ -10,8 +10,8 @@ class ItemBox{
   ItemBox(){
     this(50);
   }
-  
-  
+
+
   ItemBox(int buttonSize){
     this.buttonSize=buttonSize;
 
@@ -22,10 +22,10 @@ class ItemBox{
     buildingButtons = new Button[numberOfBuildingButtons];
 
     for( int i= 0; i < numberOfBuildingButtons; i++){  // zeilen
-//      for( int j= 0; j<1; j++){                          // spalten
-        buildingButtons[i] = new BuildingButton(x,y+buttonSize*i, buttonSize, buildingPlans[i]);
-      }
-//    }
+      //      for( int j= 0; j<1; j++){                          // spalten
+      buildingButtons[i] = new BuildingButton(x,y+buttonSize*i, buttonSize, buildingPlans[i]);
+    }
+    //    }
   }
   void draw(){
     for( int i= 0; i < numberOfBuildingButtons; i++){  // draw all buttons
@@ -98,16 +98,34 @@ class BuildingButton extends Button{
     building = new Building();
   }
   BuildingButton(int x, int y, int buttonSize, Building building){
-      super(x,y, buttonSize);
-      this.building = building;
+    super(x,y, buttonSize);
+    this.building = building;
   }
-  
+
   void draw(){
     super.draw();
     // println("Drawing: " + building.name);
-    shape(building.buildingShape,x+5,y+5,buttonSize-5,buttonSize-5);
+    float ratio = building.buildingShape.height/building.buildingShape.width;
+    float drawX; 
+    float drawY;
+    float distY;
+    float distX;
+    
+    if (ratio < 1){  // width > height
+      drawX = buttonSize-10;
+      drawY = drawX*ratio;
+    }
+    else{  // width < height
+      drawY = buttonSize-10;
+      drawX = drawY/ratio;
+    }
+    
+  distX = x + buttonSize/2.0 - drawX/2.0;
+  distY = y + buttonSize/2.0 - drawY/2.0;
+
+    shape(building.buildingShape,distX,distY,drawX,drawY);
   }
-  
+
   void update(){
     super.update();
     if (over() && mousePressed){            // test if this button is clicked
@@ -118,6 +136,7 @@ class BuildingButton extends Button{
   }
 
 }
+
 
 
 

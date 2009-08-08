@@ -62,15 +62,15 @@ class UrbanGround{
     float yPosMax;
 
     for ( int i = 0; i< strips.length ; i++){
-      xPosMin = xAxisRotate[0]*i*gridSize;
-      xPosMax =  xAxisRotate[0]*(1+i)*gridSize;
-      yPosMin =  xAxisRotate[1]*i;
-      yPosMax = xAxisRotate[1]*i+strips[i].stripLength*gridSize;
+      xPosMin = i*gridSize; // xAxisRotate[0]*
+      xPosMax = (1+i)*gridSize; //xAxisRotate[0]*
+      yPosMin =  0; // xAxisRotate[1]*i;
+      yPosMax = strips[i].stripLength*gridSize; //xAxisRotate[1]*i+
       
       quad(xPosMin,  yPosMin,    // top left corner
       xPosMax,  yPosMin,    // top right corner
-      xPosMax,  y,  // lower right corner
-      xAxisRotate[0]*i*gridSize,  xAxisRotate[1]*i+strips[i].stripLength*gridSize        // lower left corner
+      xPosMax,  yPosMax,  // lower right corner
+      xPosMin, yPosMax       // lower left corner
 
       );
     }

@@ -53,6 +53,7 @@ void mouseReleased(){
     // check if bulding can be put here
     //    ground.dropped(draggedBuilding);
     displayedBuildings.add(draggedBuilding);
+    println(draggedBuilding.name + " built");
     draggedBuilding = null;          // no building dragged anymore
   }
 }

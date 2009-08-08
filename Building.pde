@@ -2,7 +2,6 @@
  * Represents one Building with Attributes.
  */
 class Building{
-  Building[] buildingTypes;
 
   int x=0;
   int y=0;
@@ -10,6 +9,7 @@ class Building{
   int sizeY=120;
 
   int gridUnit = 20;
+
 
   PShape buildingShape;
   String name;
@@ -31,8 +31,12 @@ class Building{
     this.fieldsX = int(fromFile[2]);
     this.fieldsY = int(fromFile[3]);
     this.buildHeight = int(fromFile[4]);
+
+    // sizes still don' work correctly. because shape.width depends on fields x and y
+    float ratio = buildingShape.height/buildingShape.width;
     sizeX =fieldsX *gridUnit;
-    sizeY = buildHeight*gridUnit;
+    sizeY = round( sizeX * ratio);
+    
     println("new building constructed name: "+ this.name + " fieldsX: "+ this.fieldsX + " fieldsY: "+ this.fieldsY + " height: "+this.buildHeight);
   }
 
@@ -59,11 +63,12 @@ class Building{
   void draw(){
     //    stroke(200);
     //  fill(50);
-  //  shape(buildingShape,x,y,sizeX,sizeY);
-  shape(buildingShape,x,y);
-    } 
+   //   shape(buildingShape,x,y,sizeX,sizeY);  //does't work yet
+    shape(buildingShape,x,y);
+  } 
 
 }
+
 
 
 
