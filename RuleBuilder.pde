@@ -11,7 +11,7 @@ void setup()
   background(20);
   buildingsFromFile();    // read from file
   itemBox = new ItemBox(80);
-  ground = new Ground(10,4,60);
+  ground = new Ground(10,5,60);
   //button = new Button(10,10);
 }
 
@@ -34,9 +34,20 @@ void draw()
 
 
 void mouseReleased(){
-  // check if bulding can be put here
-  ground.dropped(draggedBuilding);
-  draggedBuilding = null;          // no building dragged anymore
+  if(draggedBuilding != null){  // if a building is being dragged
+    // check if bulding can be put here
+    ground.dropped(draggedBuilding);
+    draggedBuilding = null;          // no building dragged anymore
+  }
+}
+
+
+void mouseDragged(){
+  try{
+    ground.mouseOverField();
+  }
+  catch(Exception e){
+  }
 }
 
 

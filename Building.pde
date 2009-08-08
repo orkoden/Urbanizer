@@ -1,13 +1,18 @@
-
+/**
+Represents one Building with Attributes.
+*/
 class Building{
   Building[] buildingTypes;
 
   int x=0;
   int y=0;
-  int sizeX=120;
+  int sizeX=120;    //vistible size. should be calculated from fieldsize in grid * fieldsX
   int sizeY=120;
   PShape buildingShape;
   String name;
+  //possible attributes
+  int fieldsX = 1;  // the number of fields this building covers in x and y direction
+  int fieldsY = 1;
 
   Building(){
     name = "unnamed Building";
@@ -46,6 +51,7 @@ class Building{
   } 
 
 }
+
 
 
 

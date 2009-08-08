@@ -48,39 +48,45 @@ class Ground{
     }
   }
 
-  void dropped(Building draggedBuilding){
+  /**
+   * Returns the field the mouse is over
+   */
+  GridField mouseOverField() throws OutOfGridException{
     //calculate array coordinates from mouse coordinates
-    /*if (mouseY > height -10)  // check for lower bound
-     return;
-     if (mouseY < height - 10 - gridSizeY* gridspacing)  // check for upper bound
-     return;
-     */
     // height - 10 - (j+1)* gridspacing = Y
     int yPos = ((mouseY - height + 10 )/ -gridspacing) ;
-    /*
-    if (mouseX < 10)    // check left bound
-     return;
-     if (mouseX > yPos*10 + (gridSizeX)*gridspacing + 10)  // check max right bound
-     return;
-     */
+
     // j*slant + (i+1)*gridspacing + 10 = X
     int xPos = ((mouseX -10 - yPos * slant) / gridspacing); 
-    //int xPos = (mouseX - yPos*10 )/gridspacing;
-    //yPos = gridSizeY -yPos;
 
-    if (yPos < 0 || xPos < 0 || yPos >= gridSizeY || xPos >= gridSizeX)
-      return;
+    // check if mouse over grid
+    if (yPos < 0 || mouseX < yPos * slant || yPos >= gridSizeY || xPos >= gridSizeX)
+      throw new OutOfGridException();
+    println("gridPosition x: "+xPos+" y: "+yPos);
+    return grid[xPos][yPos]; 
+  }
 
-    println("building "+draggedBuilding.name+" dropped at x: "+xPos+" y: "+yPos);
-
-    if(grid[xPos][yPos].isEmpty)  // check if field is available
-      grid[xPos][yPos].setBuilding(draggedBuilding);  // drop building
+  boolean dropped(Building draggedBuilding){
+     try{
+      GridField field = this.mouseOverField();
+      if(field.isEmpty){  // check if field is available
+        field.setBuilding(draggedBuilding);  // drop building
+        println("building "+draggedBuilding.name+" dropped");
+        return true;  
+      }
+    }
+    catch(OutOfGridException e){
+      return false;
+    }
+    return false;
   }
 
 }
 
 //represents one field in the grid
 class GridField{
+  //  int x;    // Position in Grid
+  //  int y;
   Building building;
   boolean isEmpty;  
   GridField(){
@@ -93,15 +99,14 @@ class GridField{
   }
 }
 
-
-
-
-
-
-
-
-
-
+/**
+ * Is thrown, when the field boundaries are exeeded
+ */
+class OutOfGridException extends Exception{
+  OutOfGridException(){
+    super();
+  }
+}
 
 
 

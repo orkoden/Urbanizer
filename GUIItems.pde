@@ -28,7 +28,7 @@ class ItemBox{
     }
   }
   void draw(){
-    for( int i= 0; i < numberOfBuildingButtons; i++){
+    for( int i= 0; i < numberOfBuildingButtons; i++){  // draw all buttons
 
       buildingButtons[i].draw(); 
     }
@@ -110,9 +110,9 @@ class BuildingButton extends Button{
   
   void update(){
     super.update();
-    if (over() && mousePressed){          // test if this button is clicked
+    if (over() && mousePressed){            // test if this button is clicked
       building.setCenter(mouseX,mouseY);  
-      draggedBuilding = building.clone();  // .copy(); wÃ¤re netter  // create draggable building
+      draggedBuilding = building.clone(); // create draggable building
       // spÃ¤ter hier neues building object erstellen
     }
   }
