@@ -6,7 +6,7 @@ Building[] buildingPlans;  // store building templates
 
 void setup()
 {
-  size(800,500);
+  size(1024,500);
   smooth();  
   background(20);
   buildingsFromFile();    // read from file
@@ -48,6 +48,13 @@ void mouseDragged(){
   }
   catch(Exception e){
   }
+}
+
+
+
+void keyPressed(){
+  if (key == 's')  // press s to save current image to file
+    saveFrame("construction_site_###.png"); 
 }
 
 
