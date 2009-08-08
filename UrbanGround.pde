@@ -15,7 +15,7 @@ class UrbanGround{
     yAxisRotate = new float[2];
     xAxisRotate[1] = tan(TWO_PI/16);
     xAxisRotate[0] = 1/cos(TWO_PI/16);
-    yAxisRotate[0] = tan(TWO_PI/16);
+    yAxisRotate[0] = -tan(TWO_PI/16);
     yAxisRotate[1] = 1/cos(TWO_PI/16);
 
 
@@ -55,11 +55,21 @@ class UrbanGround{
   void display(){
     stroke(200);
     fill(100);
+    
+    float xPosMin;
+    float xPosMax;
+    float yPosMin;
+    float yPosMax;
 
     for ( int i = 0; i< strips.length ; i++){
-      quad(xAxisRotate[0]*i*gridSize,  xAxisRotate[1]*i,    // top left corner
-      xAxisRotate[0]*(1+i)*gridSize,  xAxisRotate[1]*i,    // top right corner
-      xAxisRotate[0]*(1+i)*gridSize,  xAxisRotate[1]*i+strips[i].stripLength*gridSize,  // lower right corner
+      xPosMin = xAxisRotate[0]*i*gridSize;
+      xPosMax =  xAxisRotate[0]*(1+i)*gridSize;
+      yPosMin =  xAxisRotate[1]*i;
+      yPosMax = xAxisRotate[1]*i+strips[i].stripLength*gridSize;
+      
+      quad(xPosMin,  yPosMin,    // top left corner
+      xPosMax,  yPosMin,    // top right corner
+      xPosMax,  y,  // lower right corner
       xAxisRotate[0]*i*gridSize,  xAxisRotate[1]*i+strips[i].stripLength*gridSize        // lower left corner
 
       );
