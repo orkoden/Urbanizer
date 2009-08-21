@@ -37,7 +37,7 @@ class Vertex{
     float xx = this.x;
     float yy = this.y;
 
-    this.y = ( yy - xx * x2.y) / ( y2.y * x2.x - y2.x * x2.y);
+    this.y = ( yy * x2.x - xx * x2.y) / ( y2.y * x2.x - y2.x * x2.y);
     this.x = ( xx - this.y * y2.x) / x2.x;
   }
 
