@@ -45,8 +45,8 @@ class Building{
     this.buildingShape=buildingShape;
   }
   void setCenter(int x, int y){
-    this.x = (int) (x-sizeX/2);
-    this.y = (int) (y-sizeY/2);
+    this.x = (int) round(x-sizeX/2);
+    this.y = (int) round(y-sizeY/2);
   }  
 
   Building clone(){

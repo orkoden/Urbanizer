@@ -42,6 +42,17 @@ class UrbanGround{
   }
 
   boolean mouseOver(){
+    //    Vertex xBase = new Vertex(1,0);
+    //    Vertex yBase = new Vertex(0,1);
+    Vertex mousePos = new Vertex(mouseX, mouseY);
+    //    mousePos.x -= 210;
+    //    mousePos.y -= 150;
+    mousePos.transformBack(x2,y2);
+
+    mousePos.x /= gridSize;
+    mousePos.y /= gridSize;
+    //    
+    println("strip x: " +mousePos.x + " y: " + mousePos.y);
 
     return true;
   }
@@ -56,24 +67,35 @@ class UrbanGround{
     float yPosMax;
 
     for ( int i = 0; i< strips.length ; i++){
-      xPosMin = i*gridSize; // xAxisRotate[0]*
-      xPosMax = (1+i)*gridSize; //xAxisRotate[0]*
-      yPosMin =  0 ; // xAxisRotate[1]*i;
-      yPosMax = strips[i].stripLength*gridSize; //xAxisRotate[1]*i+
+      fill(strips[i].fillColor);
+
+      xPosMin = i*gridSize; 
+      xPosMax = (1+i)*gridSize; 
+      yPosMin =  0 ; 
+      yPosMax = strips[i].stripLength*gridSize; 
 
       Vertex topleft = new Vertex(xPosMin, yPosMin);      
-      topleft.transform(x2,y2);
       Vertex topright = new Vertex(xPosMax, yPosMin);
-      topright.transform(x2,y2);
       Vertex bottomleft = new Vertex(xPosMax, yPosMax);
-      bottomleft.transform(x2,y2);
       Vertex bottomright = new Vertex(xPosMin, yPosMax);
-      bottomright.transform(x2,y2);
 
-      quad(topleft.x,  topleft.y,    // top left corner
-      topright.x,  topright.y,    // top right corner
-      bottomleft.x,  bottomleft.y,  // lower right corner
-      bottomright.x, bottomright.y       // lower left corner
+      // draw strips top down
+      //      quad(topleft.x,  topleft.y,      // top left corner
+      //      topright.x,  topright.y,        // top right corner
+      //      bottomleft.x,  bottomleft.y,    // lower right corner
+      //      bottomright.x, bottomright.y    // lower left corner
+      //      );
+
+      topleft.transform(x2,y2);
+      topright.transform(x2,y2);
+      bottomright.transform(x2,y2);
+      bottomleft.transform(x2,y2);
+
+      //draw transformed strips
+      quad(topleft.x,  topleft.y,      // top left corner
+      topright.x,  topright.y,        // top right corner
+      bottomleft.x,  bottomleft.y,    // lower right corner
+      bottomright.x, bottomright.y    // lower left corner
       );
     }
 
@@ -96,9 +118,11 @@ class UrbanStrip{
   Building building;
   int stripLength;
   boolean isEmpty;
-  
+  color fillColor;
+
   UrbanStrip(int stripLength){
     this.stripLength = stripLength;
+    fillColor = color(230);
   }
 
   boolean mouseOver(){
@@ -106,6 +130,12 @@ class UrbanStrip{
   }
 
 }
+
+
+
+
+
+
 
 
 

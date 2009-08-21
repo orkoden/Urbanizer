@@ -25,17 +25,30 @@ class Vertex{
     float yy = this.y;
     this.x = xx * x2.x + yy * y2.x;
     this.y = xx * x2.y + yy * y2.y;
-    
-   this.x+= 200;
-   this.y+= 150;
+
+    this.x+= 210;
+    this.y+= 150;
   }
-  
+
+  void transformBack(Vertex x2, Vertex y2){
+    this.x-= 210;
+    this.y-= 150;
+
+    float xx = this.x;
+    float yy = this.y;
+
+    this.y = ( yy - xx * x2.y) / ( y2.y * x2.x - y2.x * x2.y);
+    this.x = ( xx - this.y * y2.x) / x2.x;
+  }
+
   void scale(float f){
     this.x *= f; 
     this.y *= f;
   }
-  
+
 }
+
+
 
 
 
