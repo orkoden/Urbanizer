@@ -53,7 +53,7 @@ class UrbanGround{
     mousePos.y /= gridSize;
     //    
     println("strip x: " +mousePos.x + " y: " + mousePos.y);
-
+    strips[(int) mousePos.x].fillColor = color(200,50,50);
     return true;
   }
 

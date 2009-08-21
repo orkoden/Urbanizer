@@ -44,9 +44,13 @@ class Building{
     this.name=name;
     this.buildingShape=buildingShape;
   }
+  
+  // set draggin position
   void setCenter(int x, int y){
-    this.x = (int) round(x-sizeX/2);
-    this.y = (int) round(y-sizeY/2);
+    
+    // set mouse pointer relative to building, so mouspointer and building point to the same building strip
+    this.x = (int) round(x);//round(x-sizeX/2);
+    this.y = (int) round(y-sizeY+5);
   }  
 
   Building clone(){
