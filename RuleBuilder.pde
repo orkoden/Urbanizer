@@ -10,7 +10,8 @@ UrbanGround urbanGround;
 
 void setup()
 {
-  size(1024,768);
+  size(1925,600);
+//  size(1024,768); // final size for presentation
   smooth();  
   background(240);
   buildingsFromFile();    // read from file
