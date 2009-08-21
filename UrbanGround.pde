@@ -47,8 +47,8 @@ class UrbanGround{
   }
 
   void display(){
-    stroke(245);
-    fill(250);
+    stroke(220);
+    fill(230);
 
     float xPosMin;
     float xPosMax;

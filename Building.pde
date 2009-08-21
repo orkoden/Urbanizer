@@ -5,8 +5,8 @@ class Building{
 
   int x=0;
   int y=0;
-  int sizeX=120;    //vistible size. should be calculated from fieldsize in grid * fieldsX
-  int sizeY=120;
+  float sizeX=120;    //vistible size. should be calculated from fieldsize in grid * fieldsX
+  float sizeY=120;
 
   int gridUnit = 20;
 
@@ -34,7 +34,7 @@ class Building{
 
     // sizes still don' work correctly. because shape.width depends on fields x and y
     float ratio = buildingShape.height/buildingShape.width;
-    sizeX =fieldsX *gridUnit;
+    sizeX = buildingShape.width/2.0;
     sizeY = round( sizeX * ratio);
     
     println("new building constructed name: "+ this.name + " fieldsX: "+ this.fieldsX + " fieldsY: "+ this.fieldsY + " height: "+this.buildHeight);
@@ -45,8 +45,8 @@ class Building{
     this.buildingShape=buildingShape;
   }
   void setCenter(int x, int y){
-    this.x = x-sizeX/2;
-    this.y = y-sizeY/2;
+    this.x = (int) (x-sizeX/2);
+    this.y = (int) (y-sizeY/2);
   }  
 
   Building clone(){
@@ -63,8 +63,8 @@ class Building{
   void draw(){
     //    stroke(200);
     //  fill(50);
-   //   shape(buildingShape,x,y,sizeX,sizeY);  //does't work yet
-    shape(buildingShape,x,y);
+      shape(buildingShape,x,y,sizeX,sizeY);  //does't work yet
+   // shape(buildingShape,x,y);
   } 
 
 }

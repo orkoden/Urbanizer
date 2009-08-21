@@ -10,8 +10,8 @@ UrbanGround urbanGround;
 
 void setup()
 {
-  size(1925,600);
-//  size(1024,768); // final size for presentation
+//  size(1925,600);
+  size(1024,768); // final size for presentation
   smooth();  
   background(240);
   buildingsFromFile();    // read from file
@@ -28,7 +28,7 @@ void setup()
 
 void draw()
 {
-  background(240);
+  background(250);
   urbanGround.display();
   // ground.draw();
 

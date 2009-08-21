@@ -26,8 +26,8 @@ class Vertex{
     this.x = xx * x2.x + yy * y2.x;
     this.y = xx * x2.y + yy * y2.y;
     
-   this.x+=400;
-   this.y+= 50;
+   this.x+= 200;
+   this.y+= 150;
   }
   
   void scale(float f){
