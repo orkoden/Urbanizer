@@ -105,16 +105,13 @@ class Building{
     int xx = this.x;
     int yy = this.y;
     for (int i = 0; i < times; i++){
+    
+    // todo: check if building is a Turm, add distance between Turms and reduce number of buldings drawn
+    
       this.draw();
       // move building
       this.x = (int) (this.x + y2.x * this.fieldsY * gridSize);
       this.y = (int) (this.y + y2.y * this.fieldsY * gridSize);
-      
-//      this.setCenter((int) (corners[0].x + y2.x * this.fieldsY * gridSize), 
-//      (int)(corners[0].y + y2.y * this.fieldsY * gridSize));
-
-      //      shape(buildingShape,x,y,sizeX,sizeY);  //does work 
-
     }
     
     // reset coordinates to originl values

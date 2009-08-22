@@ -63,13 +63,6 @@ class UrbanGround{
       Vertex bottomright = new Vertex(xPosMax, yPosMax);
       Vertex bottomleft = new Vertex(xPosMin, yPosMax);
 
-      // draw strips top down
-      //      quad(topleft.x,  topleft.y,      // top left corner
-      //      topright.x,  topright.y,        // top right corner
-      //      bottomleft.x,  bottomleft.y,    // lower right corner
-      //      bottomright.x, bottomright.y    // lower left corner
-      //      );
-
       topleft.transform(x2,y2);
       topright.transform(x2,y2);
       bottomright.transform(x2,y2);
@@ -88,7 +81,7 @@ class UrbanGround{
     }
 
   }
-  
+
   void clear(){
     for(int i=0; i < strips.length; i++){  // reset color for all strips
       strips[i].removeBuilding();
@@ -106,12 +99,11 @@ class UrbanGround{
     }
 
     for(int i=0; i < strips.length; i++){  // reset color for all strips
-      strips[i].fillColor = color(230);
+      strips[i].fillColor = color(200);
     }
 
     // check all strips under the building
     for(int i = (int)mousePos.x; i < ((int) mousePos.x + draggedBuilding.fieldsX) && i < strips.length; i++){  //highlighting
-
       strips[i].highlight();  // green or red highlight
     }
     return true;
@@ -135,7 +127,8 @@ class UrbanGround{
 
     for(int i = (int)mousePos.x; i < ((int) mousePos.x + draggedBuilding.fieldsX) && i < strips.length; i++){  //highlighting
       if (i == (int)mousePos.x) strips[i].isBuildingRoot = true;  // set first strip as root for building
-      strips[i].setBuilding(draggedBuilding);        // green or red highlight
+      strips[i].setBuilding(draggedBuilding);        // 
+      strips[i].fillColor = color(200);
     }
   }
 
@@ -160,7 +153,7 @@ class UrbanGround{
 
   void display(){
     stroke(220);
-    fill(230);
+    fill(120);
 
     for ( int i = strips.length-1; i >= 0 ; i--){
       strips[i].display();
@@ -199,9 +192,9 @@ class UrbanStrip{
 
   UrbanStrip(int stripLength){
     this.stripLength = stripLength;
-    fillColor = color(230);
-    highlightRed = color(255,230,230) ;
-    highlightGreen =  color(230,255,230);
+    fillColor = color(200);
+    highlightRed = color(255,100,100) ;
+    highlightGreen =  color(100,255,100);
   }
 
   UrbanStrip(int stripLength, Vertex[] corners){
@@ -229,6 +222,7 @@ class UrbanStrip{
   void display(){
     // display strip
     fill(fillColor);
+    stroke(190);
     quad(corners[0].x, corners[0].y,
     corners[1].x, corners[1].y,
     corners[2].x, corners[2].y,
@@ -239,7 +233,28 @@ class UrbanStrip{
   void displayBuilding(){
     if (!isEmpty && this.isBuildingRoot){   
       // display building
-      this.building.draw(this.stripLength / this.building.fieldsY);
+      //this.building.draw(this.stripLength / this.building.fieldsY);
+
+      // copy building position
+      int buildX = this.building.x;
+      int buildY = this.building.y;
+
+      if (this.building.name.equals("Turm")){
+        for (int i = 0; i< this.stripLength / (this.building.fieldsY + 10); i++){
+          this.building.setCenter((int) round(corners[0].x + y2.x * (this.building.fieldsY +10)* (i+1) * gridSize), 
+          (int)round(corners[0].y + y2.y * (this.building.fieldsY +10) *(i+1)* gridSize));
+          this.building.draw();
+        }
+      }
+
+      else for (int i = 0; i< this.stripLength / this.building.fieldsY; i++){
+        this.building.setCenter((int) round(corners[0].x + y2.x * this.building.fieldsY* (i+1) * gridSize), 
+        (int)round(corners[0].y + y2.y * this.building.fieldsY *(i+1)* gridSize));
+        this.building.draw();
+      }
+
+      this.building.x = buildX;
+      this.building.y = buildY;
     }
   }
 
@@ -250,6 +265,9 @@ class UrbanStrip{
       fillColor = highlightRed;
   }
 }
+
+
+
 
 
 
