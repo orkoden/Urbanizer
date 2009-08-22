@@ -16,6 +16,7 @@ class Building{
   //possible attributes
   int fieldsX = 5;  // the number of fields this building covers in x and y direction
   int fieldsY = 1;
+  float centerOffsetY =5;
 
   int buildHeight = 1;
 
@@ -36,21 +37,45 @@ class Building{
     float ratio = buildingShape.height/buildingShape.width;
     sizeX = buildingShape.width/2.0;
     sizeY = round( sizeX * ratio);
-    
-    println("new building constructed name: "+ this.name + " fieldsX: "+ this.fieldsX + " fieldsY: "+ this.fieldsY + " height: "+this.buildHeight);
+
+    this.centerOffsetY = centerOffset(fromFile[0]);
+
+    println("new building constructed name: "+ this.name + " fieldsX: "+ this.fieldsX + " fieldsY: "+ this.fieldsY + " height: "+this.buildHeight + " centerOffsetY: " + this.centerOffsetY);
   }
 
   Building(String name, PShape buildingShape){
     this.name=name;
     this.buildingShape=buildingShape;
   }
-  
+
+  float centerOffset(String buildingName){
+
+    if(buildingName.equals("Turm"))
+      return 8;
+    else if(buildingName.equals("Scheibe"))
+      return 4;
+    else if(buildingName.equals("Block"))
+      return 11;
+    else if(buildingName.equals("Patio"))
+      return 8;
+    else if(buildingName.equals("Reihe"))
+      return 4;
+    else if(buildingName.equals("Frei"))
+      return 8;
+    else if(buildingName.equals("Box"))
+      return 17;
+
+    else 
+      return 7;
+
+  }
+
   // set draggin position
   void setCenter(int x, int y){
-    
+
     // set mouse pointer relative to building, so mouspointer and building point to the same building strip
-    this.x = (int) round(x);//round(x-sizeX/2);
-    this.y = (int) round(y-sizeY+5);
+    this.x = (int) round(x);        //round(x-sizeX/2);
+    this.y = (int) round(y- sizeY + this.centerOffsetY);
   }  
 
   Building clone(){
@@ -63,17 +88,53 @@ class Building{
     clone.fieldsY=fieldsY;
     clone.buildingShape = buildingShape;
     clone.name = name;
+    clone.centerOffsetY = centerOffsetY;
     return clone;
   }
 
   void draw(){
     //    stroke(200);
     //  fill(50);
-      shape(buildingShape,x,y,sizeX,sizeY);  //does't work yet
-   // shape(buildingShape,x,y);
+    shape(buildingShape,x,y,sizeX,sizeY);  //does work 
+    // shape(buildingShape,x,y);
   } 
 
+  // draw building several times
+  void draw(int times){
+    // copy original coordinates
+    int xx = this.x;
+    int yy = this.y;
+    for (int i = 0; i < times; i++){
+      this.draw();
+      // move building
+      this.x = (int) (this.x + y2.x * this.fieldsY * gridSize);
+      this.y = (int) (this.y + y2.y * this.fieldsY * gridSize);
+      
+//      this.setCenter((int) (corners[0].x + y2.x * this.fieldsY * gridSize), 
+//      (int)(corners[0].y + y2.y * this.fieldsY * gridSize));
+
+      //      shape(buildingShape,x,y,sizeX,sizeY);  //does work 
+
+    }
+    
+    // reset coordinates to originl values
+    this.x = xx;
+    this.y = yy;
+  }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

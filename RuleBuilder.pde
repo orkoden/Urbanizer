@@ -40,7 +40,6 @@ void draw()
   itemBox.draw();
   try{
     //   println("draggin"+draggedBuilding.name);
-    draggedBuilding.setCenter(mouseX,mouseY);
     draggedBuilding.draw();
   }
   catch(Exception ex){
@@ -54,7 +53,8 @@ void mouseReleased(){
     // check if bulding can be put here
     //    ground.dropped(draggedBuilding);
     if (  urbanGround.mouseOver(mouseX, mouseY)){
-      displayedBuildings.add(draggedBuilding);
+     // displayedBuildings.add(draggedBuilding);
+      urbanGround.dropBuilding(draggedBuilding, mouseX,mouseY);
       println(draggedBuilding.name + " built");
     }
     draggedBuilding = null;          // no building dragged anymore
@@ -63,9 +63,13 @@ void mouseReleased(){
 
 
 void mouseDragged(){
-  urbanGround.mouseOver(mouseX, mouseY);
+
+ 
   try{
     //    ground.mouseOverField();
+     urbanGround.mouseOver(mouseX, mouseY);
+      draggedBuilding.setCenter(mouseX,mouseY);
+
   }
   catch(Exception e){
   }
@@ -77,6 +81,7 @@ void keyPressed(){
   if (key == 's')  // press s to save current image to file
     saveFrame("construction_site_###.png"); 
 }
+
 
 
 
