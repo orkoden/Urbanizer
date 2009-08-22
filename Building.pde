@@ -14,7 +14,7 @@ class Building{
   PShape buildingShape;
   String name;
   //possible attributes
-  int fieldsX = 1;  // the number of fields this building covers in x and y direction
+  int fieldsX = 5;  // the number of fields this building covers in x and y direction
   int fieldsY = 1;
 
   int buildHeight = 1;
@@ -59,6 +59,8 @@ class Building{
     clone.y = y;
     clone.sizeX=sizeX;
     clone.sizeY=sizeY;
+    clone.fieldsX=fieldsX;
+    clone.fieldsY=fieldsY;
     clone.buildingShape = buildingShape;
     clone.name = name;
     return clone;

@@ -10,7 +10,7 @@ UrbanGround urbanGround;
 
 void setup()
 {
-//  size(1925,600);
+  //  size(1925,600);
   size(1024,768); // final size for presentation
   smooth();  
   background(240);
@@ -53,15 +53,17 @@ void mouseReleased(){
   if(draggedBuilding != null){  // if a building is being dragged
     // check if bulding can be put here
     //    ground.dropped(draggedBuilding);
-    displayedBuildings.add(draggedBuilding);
-    println(draggedBuilding.name + " built");
+    if (  urbanGround.mouseOver(mouseX, mouseY)){
+      displayedBuildings.add(draggedBuilding);
+      println(draggedBuilding.name + " built");
+    }
     draggedBuilding = null;          // no building dragged anymore
   }
 }
 
 
 void mouseDragged(){
-  urbanGround.mouseOver();
+  urbanGround.mouseOver(mouseX, mouseY);
   try{
     //    ground.mouseOverField();
   }
@@ -75,6 +77,8 @@ void keyPressed(){
   if (key == 's')  // press s to save current image to file
     saveFrame("construction_site_###.png"); 
 }
+
+
 
 
 

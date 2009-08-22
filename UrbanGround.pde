@@ -41,20 +41,40 @@ class UrbanGround{
 
   }
 
-  boolean mouseOver(){
-    //    Vertex xBase = new Vertex(1,0);
-    //    Vertex yBase = new Vertex(0,1);
-    Vertex mousePos = new Vertex(mouseX, mouseY);
-    //    mousePos.x -= 210;
-    //    mousePos.y -= 150;
+  boolean mouseOver(float mousePosX, float mousePosY){
+    Vertex mousePos = new Vertex(mousePosX, mousePosY);
     mousePos.transformBack(x2,y2);
 
     mousePos.x /= gridSize;
     mousePos.y /= gridSize;
-    //    
-    println("strip x: " +mousePos.x + " y: " + mousePos.y);
-    strips[(int) mousePos.x].fillColor = color(200,50,50);
+    //   println("strip x: " +mousePos.x + " y: " + mousePos.y);
+    mousePos.x = floor(mousePos.x);
+    mousePos.y = floor(mousePos.y);
+
+    // check boundaries
+    if (mousePos.x < 0 || mousePos.x >= strips.length)  // check x boundaries
+      return false;
+    else if(mousePos.y < 0 || mousePos.y >= strips[(int)mousePos.x].stripLength){  // check strip length boundaries
+      return false;  
+    }
+
+    for(int i=0; i < strips.length; i++){  // reset color
+      strips[i].fillColor = color(230);
+    }
+
+    for(int i = (int)mousePos.x; i < ((int) mousePos.x + draggedBuilding.fieldsX) && i < strips.length; i++){  //highlighting
+      // todo: check if strip is empty
+      strips[i].fillColor = color(230,255,230);  // green highlight
+    }
     return true;
+  }
+
+  void dropBuilding(Building droppedBuilding){
+    if(!this.mouseOver(mouseX, mouseY))
+      return;
+
+
+
   }
 
   void display(){
@@ -129,7 +149,23 @@ class UrbanStrip{
     return true;
   }
 
+  void setBuilding(Building building){
+    this.building = building;
+    this.isEmpty = false;
+
+  }
+  void removeBuilding(){
+    this.building = null;
+    this.isEmpty = true;
+  }
 }
+
+
+
+
+
+
+
 
 
 
