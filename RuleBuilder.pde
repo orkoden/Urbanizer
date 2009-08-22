@@ -1,10 +1,19 @@
 
+// sound api
+import ddf.minim.signals.*;
+import ddf.minim.*;
+import ddf.minim.analysis.*;
+import ddf.minim.effects.*;
+
+
+
+
 ItemBox itemBox;
 Building draggedBuilding;
 Ground ground;
 Building[] buildingPlans;  // store building templates
 
-ArrayList displayedBuildings;
+//ArrayList displayedBuildings;
 
 UrbanGround urbanGround;
 
@@ -19,7 +28,7 @@ void setup()
 
   urbanGround = new UrbanGround();
 
-  displayedBuildings = new ArrayList();
+  // displayedBuildings = new ArrayList();
 
   // ground = new Ground(10,5,60);
   //button = new Button(10,10);
@@ -32,10 +41,10 @@ void draw()
   urbanGround.display();
   // ground.draw();
 
-  for (int i = displayedBuildings.size()-1; i >= 0; i--) { 
-    Building build = (Building) displayedBuildings.get(i);
-    build.draw();
-  }
+  //  for (int i = displayedBuildings.size()-1; i >= 0; i--) { 
+  //    Building build = (Building) displayedBuildings.get(i);
+  //    build.draw();
+  //  }
 
   itemBox.draw();
   try{
@@ -53,7 +62,7 @@ void mouseReleased(){
     // check if bulding can be put here
     //    ground.dropped(draggedBuilding);
     if (  urbanGround.mouseOver(mouseX, mouseY)){
-     // displayedBuildings.add(draggedBuilding);
+      // displayedBuildings.add(draggedBuilding);
       urbanGround.dropBuilding(draggedBuilding, mouseX,mouseY);
       println(draggedBuilding.name + " built");
     }
@@ -64,11 +73,11 @@ void mouseReleased(){
 
 void mouseDragged(){
 
- 
+
   try{
     //    ground.mouseOverField();
-     urbanGround.mouseOver(mouseX, mouseY);
-      draggedBuilding.setCenter(mouseX,mouseY);
+    urbanGround.mouseOver(mouseX, mouseY);
+    draggedBuilding.setCenter(mouseX,mouseY);
 
   }
   catch(Exception e){
@@ -80,7 +89,11 @@ void mouseDragged(){
 void keyPressed(){
   if (key == 's')  // press s to save current image to file
     saveFrame("construction_site_###.png"); 
+  if (key == 'n')  // press n for new build phase
+    urbanGround.clear();
 }
+
+
 
 
 

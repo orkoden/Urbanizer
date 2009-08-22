@@ -88,6 +88,13 @@ class UrbanGround{
     }
 
   }
+  
+  void clear(){
+    for(int i=0; i < strips.length; i++){  // reset color for all strips
+      strips[i].removeBuilding();
+    }
+
+  }
 
   boolean mouseOver(float mousePosX, float mousePosY){
     Vertex mousePos;
