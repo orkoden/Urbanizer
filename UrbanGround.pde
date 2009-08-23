@@ -50,6 +50,12 @@ class UrbanGround{
       strips[i] = new UrbanStrip(currentStripLength);
     }   
 
+    // mark strips with border
+    int[] borderStrips = {
+      8, 36,37,48, 58, 70, 76            };
+    for (int i= 0; i < borderStrips.length; i++){
+      strips[borderStrips[i]].hasBorder = true;
+    }
     // calculate corners for strips
     for ( int i = 0; i< strips.length ; i++){
 
@@ -135,7 +141,10 @@ class UrbanGround{
 
     // test if it can be built here
     for(int i = (int)mousePos.x; i < ((int) mousePos.x + draggedBuilding.fieldsX) && i < strips.length; i++){  //
-      if(!strips[i].isEmpty || mousePos.x + draggedBuilding.fieldsX > strips.length  || strips[i].stripLength < draggedBuilding.fieldsY){      //  check if all strips under building are empty and long enough
+      if(!strips[i].isEmpty ||                         // check if strip is free
+      (strips[i].hasBorder && (i < ((int) mousePos.x + draggedBuilding.fieldsX -1) ) ) ||   // check if building is crossing a border
+      mousePos.x + draggedBuilding.fieldsX > strips.length  ||  // check for right edge of Urbanground
+      strips[i].stripLength < draggedBuilding.fieldsY){      //  check if all strips under building are long enough
         this.allStripsNoHighlight();
         return;  // cannot build so return
       }
@@ -204,11 +213,14 @@ class UrbanGround{
 class UrbanStrip{
   Building building;
   boolean isBuildingRoot = false;    // the leftmost building is its root and responsible for drawing it
-  int buildToDepth; 
+  int buildToDepth;                   // how deep can the building be built here
 
   int stripLength = 0;
   boolean isEmpty = true;
-  Vertex[] corners;  // has to be clockwise starting with top left corner
+  Vertex[] corners;          // has to be clockwise starting with top left corner
+  boolean hasBorder = false;  // true if the right side of this strip is a border, that can't be built over
+  color currentBorderColor;
+  color normalBorderColor;
 
   color fillColor;
   color highlightRed;
@@ -220,6 +232,8 @@ class UrbanStrip{
     fillColor = color(200);
     highlightRed = color(255,100,100) ;
     highlightGreen =  color(100,255,100);
+    normalBorderColor = color(150);
+    currentBorderColor = normalBorderColor;
   }
 
   UrbanStrip(int stripLength, Vertex[] corners){
@@ -251,6 +265,11 @@ class UrbanStrip{
     corners[2].x, corners[2].y,
     corners[3].x, corners[3].y
       );
+
+    if(hasBorder){  // draw right border
+      stroke(currentBorderColor);
+      line(corners[1].x, corners[1].y,   corners[2].x, corners[2].y);
+    }
   }
 
   void displayBuilding(){
@@ -285,6 +304,9 @@ class UrbanStrip{
   }
 
   void highlight(){
+    if (hasBorder)
+      currentBorderColor = highlightRed;
+
     if (isEmpty)
       currentColor = highlightGreen;
     else
@@ -293,8 +315,13 @@ class UrbanStrip{
 
   void nohighlight(){
     currentColor = fillColor;
+    currentBorderColor = normalBorderColor;
   }
 }
+
+
+
+
 
 
 

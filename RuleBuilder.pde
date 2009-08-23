@@ -6,6 +6,9 @@ import ddf.minim.analysis.*;
 import ddf.minim.effects.*;
 // end sound api
 
+Minim minim;
+AudioSnippet constructionSound;
+
 
 
 ItemBox itemBox;
@@ -24,6 +27,24 @@ void setup()
   itemBox = new ItemBox(80);
 
   urbanGround = new UrbanGround();
+  
+  
+  
+    minim = new Minim(this);
+  // load a file into an AudioSnippet
+  // it must be in this sketches data folder
+  constructionSound = minim.loadSnippet("constructionsound.mp3");
+
+}
+
+void stop()
+{
+  // always close Minim audio classes
+  constructionSound.close();
+  // always stop Minim before exiting
+  minim.stop();
+ 
+  super.stop();
 }
 
 
@@ -38,6 +59,8 @@ void draw()
   }
   catch(Exception ex){
   }
+
+
 
 }
 
@@ -74,6 +97,12 @@ void keyPressed(){
     saveFrame("construction_site_###.png"); 
   if (key == 'n')  // press n for new build phase
     setup();
+    
+      if ( key == 'p' )
+  {
+    constructionSound.play();
+  }
+
 }
 
 
