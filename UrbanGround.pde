@@ -135,16 +135,21 @@ class UrbanGround{
 
     // test if it can be built here
     for(int i = (int)mousePos.x; i < ((int) mousePos.x + draggedBuilding.fieldsX) && i < strips.length; i++){  //
-      if(!strips[i].isEmpty || strips[i].stripLength < draggedBuilding.fieldsY){      //  check if all strips under building are empty and long enough
+      if(!strips[i].isEmpty || mousePos.x + draggedBuilding.fieldsX > strips.length  || strips[i].stripLength < draggedBuilding.fieldsY){      //  check if all strips under building are empty and long enough
         this.allStripsNoHighlight();
         return;  // cannot build so return
       }
     }
 
     // build building
+    int buildToDepth = 100000;
+    for(int i = (int)mousePos.x; i < ((int) mousePos.x + draggedBuilding.fieldsX) && i < strips.length; i++){  //highlighting
+      if (buildToDepth > strips[i].stripLength )  // find shortest strip
+        buildToDepth = strips[i].stripLength;
+    }
     for(int i = (int)mousePos.x; i < ((int) mousePos.x + draggedBuilding.fieldsX) && i < strips.length; i++){  //highlighting
       if (i == (int)mousePos.x) strips[i].isBuildingRoot = true;  // set first strip as root for building
-      strips[i].setBuilding(draggedBuilding);        // set building to all strips
+      strips[i].setBuilding(draggedBuilding, buildToDepth);        // set building to all strips
       strips[i].nohighlight();
     }
   }
@@ -199,6 +204,7 @@ class UrbanGround{
 class UrbanStrip{
   Building building;
   boolean isBuildingRoot = false;    // the leftmost building is its root and responsible for drawing it
+  int buildToDepth; 
 
   int stripLength = 0;
   boolean isEmpty = true;
@@ -222,8 +228,9 @@ class UrbanStrip{
   }
 
 
-  void setBuilding(Building building){
+  void setBuilding(Building building, int buildToDepth){
     this.building = building;
+    this.buildToDepth = buildToDepth;
     this.isEmpty = false;
     if (this.isBuildingRoot) 
       this.building.setCenter((int) (corners[0].x + y2.x * this.building.fieldsY * gridSize), 
@@ -258,14 +265,14 @@ class UrbanStrip{
       if (this.building.name.equals("Turm")){
         //this.building.draw();
         Vertex towerPos = new Vertex(corners[0].x, corners[0].y);
-        for (int i = 0; i<  1 + this.stripLength / (this.building.fieldsY + 10); i++){
+        for (int i = 0; i<  1 + buildToDepth / (this.building.fieldsY + 10); i++){
           this.building.setCenter((int) round(corners[0].x + y2.x * ((this.building.fieldsY+ 10)*(i+1) -10) * gridSize), 
           (int)round(corners[0].y + y2.y * ((this.building.fieldsY+10)*(i+1) -10)* gridSize));
           this.building.draw();
         }
       }
 
-      else for (int i = 0; i< this.stripLength / this.building.fieldsY; i++){
+      else for (int i = 0; i< buildToDepth / this.building.fieldsY; i++){
         this.building.setCenter((int) round(corners[0].x + y2.x * this.building.fieldsY* (i+1) * gridSize), 
         (int)round(corners[0].y + y2.y * this.building.fieldsY *(i+1)* gridSize));
         this.building.draw();
@@ -288,6 +295,9 @@ class UrbanStrip{
     currentColor = fillColor;
   }
 }
+
+
+
 
 
 
