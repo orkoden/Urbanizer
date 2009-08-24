@@ -177,15 +177,15 @@ class UrbanGround{
 
 
     // build building
-    int buildToDepth = 100000;
+    int buildToDepth = 100000;  // how deep in y direction can the building be built
     for(int i = (int)mousePos.x; i < ((int) mousePos.x + draggedBuilding.fieldsX) && i < strips.length; i++){  //highlighting
       if (buildToDepth > strips[i].stripLength )  // find shortest strip
         buildToDepth = strips[i].stripLength;
     }
+    
     for(int i = (int)mousePos.x; i < ((int) mousePos.x + draggedBuilding.fieldsX) && i < strips.length; i++){  //highlighting
       if (i == (int)mousePos.x) strips[i].isBuildingRoot = true;  // set first strip as root for building
       strips[i].setBuilding(draggedBuilding, buildToDepth);        // set building to all strips
-
       strips[i].nohighlight();
     }
 
@@ -320,22 +320,22 @@ class UrbanStrip{
       //this.building.draw(this.stripLength / this.building.fieldsY);
 
       // copy building position
-      int buildX = this.building.x;
-      int buildY = this.building.y;
+      float buildX = this.building.x;
+      float buildY = this.building.y;
 
       if (this.building.name.equals("Turm")){
         //this.building.draw();
         Vertex towerPos = new Vertex(corners[0].x, corners[0].y);
         for (int i = 0; i<  1 + buildToDepth / (this.building.fieldsY + 10); i++){
-          this.building.setCenter((int) round(corners[0].x + y2.x * ((this.building.fieldsY+ 10)*(i+1) -10) * gridSize), 
-          (int)round(corners[0].y + y2.y * ((this.building.fieldsY+10)*(i+1) -10)* gridSize));
+          this.building.setCenter(corners[0].x + y2.x * ((this.building.fieldsY+ 10)*(i+1) -10) * gridSize, 
+          corners[0].y + y2.y * ((this.building.fieldsY+10)*(i+1) -10)* gridSize);
           this.building.draw();
         }
       }
 
       else for (int i = 0; i< buildToDepth / this.building.fieldsY; i++){
-        this.building.setCenter((int) round(corners[0].x + y2.x * this.building.fieldsY* (i+1) * gridSize), 
-        (int)round(corners[0].y + y2.y * this.building.fieldsY *(i+1)* gridSize));
+        this.building.setCenter((corners[0].x + y2.x * this.building.fieldsY* (i+1) * gridSize), 
+        (corners[0].y + y2.y * this.building.fieldsY *(i+1)* gridSize));
         this.building.draw();
       }
 

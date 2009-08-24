@@ -3,8 +3,8 @@
  */
 class Building{
 
-  int x=0;
-  int y=0;
+  float x=0;
+  float y=0;
   float sizeX=120;    //vistible size. should be calculated from fieldsize in grid * fieldsX
   float sizeY=120;
 
@@ -74,11 +74,11 @@ class Building{
   }
 
   // set draggin position
-  void setCenter(int x, int y){
+  void setCenter(float x, float y){
 
     // set mouse pointer relative to building, so mouspointer and building point to the same building strip
-    this.x = (int) round(x);        //round(x-sizeX/2);
-    this.y = (int) round(y- sizeY + this.centerOffsetY);
+    this.x = x;        //round(x-sizeX/2);
+    this.y = y- sizeY + this.centerOffsetY;
   }  
 
   Building clone(){
@@ -104,25 +104,6 @@ class Building{
     // shape(buildingShape,x,y);
   } 
 
-  // draw building several times
-  void draw(int times){
-    // copy original coordinates
-    int xx = this.x;
-    int yy = this.y;
-    for (int i = 0; i < times; i++){
-
-      // todo: check if building is a Turm, add distance between Turms and reduce number of buldings drawn
-
-      this.draw();
-      // move building
-      this.x = (int) (this.x + y2.x * this.fieldsY * gridSize);
-      this.y = (int) (this.y + y2.y * this.fieldsY * gridSize);
-    }
-
-    // reset coordinates to originl values
-    this.x = xx;
-    this.y = yy;
-  }
 
 }
 
