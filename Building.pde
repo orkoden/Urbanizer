@@ -19,6 +19,7 @@ class Building{
   float centerOffsetY =5;
 
   int buildHeight = 1;
+  boolean lighted = false;  // true if outer facades need lighting
 
   Building(){
     name = "unnamed Building";
@@ -32,6 +33,8 @@ class Building{
     this.fieldsX = int(fromFile[2]);
     this.fieldsY = int(fromFile[3]);
     this.buildHeight = int(fromFile[4]);
+    if(fromFile[5].equals("ja"))
+      this.lighted = true;
 
     // sizes still don' work correctly. because shape.width depends on fields x and y
     float ratio = buildingShape.height/buildingShape.width;
@@ -89,6 +92,8 @@ class Building{
     clone.buildingShape = buildingShape;
     clone.name = name;
     clone.centerOffsetY = centerOffsetY;
+    clone.buildHeight = buildHeight;
+    clone.lighted = lighted;
     return clone;
   }
 
@@ -105,21 +110,22 @@ class Building{
     int xx = this.x;
     int yy = this.y;
     for (int i = 0; i < times; i++){
-    
-    // todo: check if building is a Turm, add distance between Turms and reduce number of buldings drawn
-    
+
+      // todo: check if building is a Turm, add distance between Turms and reduce number of buldings drawn
+
       this.draw();
       // move building
       this.x = (int) (this.x + y2.x * this.fieldsY * gridSize);
       this.y = (int) (this.y + y2.y * this.fieldsY * gridSize);
     }
-    
+
     // reset coordinates to originl values
     this.x = xx;
     this.y = yy;
   }
 
 }
+
 
 
 

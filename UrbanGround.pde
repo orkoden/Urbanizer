@@ -52,7 +52,7 @@ class UrbanGround{
 
     // mark strips with border
     int[] borderStrips = {
-      8, 36,37,48, 58, 70, 76            };
+      8, 36,37,48, 58, 70, 76                                                                    };
     for (int i= 0; i < borderStrips.length; i++){
       strips[borderStrips[i]].hasBorder = true;
     }
@@ -121,6 +121,16 @@ class UrbanGround{
     // check all strips under the building
     for(int i = (int)mousePos.x; i < ((int) mousePos.x + draggedBuilding.fieldsX) && i < strips.length; i++){  //highlighting
       strips[i].highlight();  // green or red highlight
+
+        for(int j = i - draggedBuilding.buildHeight; j < i + draggedBuilding.fieldsX + draggedBuilding.buildHeight; j++){
+        try{   
+          if (strips[j].building.lighted ){
+            strips[i].currentColor = strips[i].highlightRed;
+          }
+        }
+        catch(Exception e){
+        }
+      }
     }
     return true;
   }
@@ -140,15 +150,32 @@ class UrbanGround{
     }
 
     // test if it can be built here
-    for(int i = (int)mousePos.x; i < ((int) mousePos.x + draggedBuilding.fieldsX) && i < strips.length; i++){  //
+    for(int i = (int)mousePos.x; i < ((int) mousePos.x + draggedBuilding.fieldsX) && i < strips.length; i++){  // for all strips under building
+      //check if there are lighted buildings in the neighborhood
+      //println(draggedBuilding.name + " is not lighted");
+      for(int j = i - draggedBuilding.buildHeight; j < i + draggedBuilding.fieldsX + draggedBuilding.buildHeight; j++){
+        try{   
+          if (strips[j].building.lighted){
+            this.allStripsNoHighlight();
+            return;
+          }
+        }
+        catch(Exception e){
+        }
+      }
+
       if(!strips[i].isEmpty ||                         // check if strip is free
       (strips[i].hasBorder && (i < ((int) mousePos.x + draggedBuilding.fieldsX -1) ) ) ||   // check if building is crossing a border
       mousePos.x + draggedBuilding.fieldsX > strips.length  ||  // check for right edge of Urbanground
-      strips[i].stripLength < draggedBuilding.fieldsY){      //  check if all strips under building are long enough
+      strips[i].stripLength < draggedBuilding.fieldsY ||      //  check if all strips under building are long enough
+      (draggedBuilding.lighted && !strips[i].canBuildLighted)        //check if building is lighted and ground allows lighted building  
+      ){
         this.allStripsNoHighlight();
         return;  // cannot build so return
       }
     }
+
+
 
     // build building
     int buildToDepth = 100000;
@@ -159,7 +186,18 @@ class UrbanGround{
     for(int i = (int)mousePos.x; i < ((int) mousePos.x + draggedBuilding.fieldsX) && i < strips.length; i++){  //highlighting
       if (i == (int)mousePos.x) strips[i].isBuildingRoot = true;  // set first strip as root for building
       strips[i].setBuilding(draggedBuilding, buildToDepth);        // set building to all strips
+
       strips[i].nohighlight();
+    }
+
+    // adjust neighboring strips to disallow lighted building
+    for(int i = (int)mousePos.x - draggedBuilding.buildHeight; 
+    i < ((int) mousePos.x + draggedBuilding.fieldsX + draggedBuilding.buildHeight) && i < strips.length; i++){  //highlighting
+      try {
+        strips[i].canBuildLighted = false;
+      }
+      catch(Exception e){
+      }
     }
     constructionSound();
   }
@@ -217,8 +255,10 @@ class UrbanStrip{
   int buildToDepth;                   // how deep can the building be built here
 
   int stripLength = 0;
-  boolean isEmpty = true;
-  Vertex[] corners;          // has to be clockwise starting with top left corner
+  boolean isEmpty = true;          // is the strip empty
+  boolean canBuildLighted = true;  // can a lighted building be constructed here
+
+    Vertex[] corners;          // has to be clockwise starting with top left corner
   boolean hasBorder = false;  // true if the right side of this strip is a border, that can't be built over
   color currentBorderColor;
   color normalBorderColor;
@@ -247,6 +287,8 @@ class UrbanStrip{
     this.building = building;
     this.buildToDepth = buildToDepth;
     this.isEmpty = false;
+    this.canBuildLighted = false;
+
     if (this.isBuildingRoot) 
       this.building.setCenter((int) (corners[0].x + y2.x * this.building.fieldsY * gridSize), 
       (int)(corners[0].y + y2.y * this.building.fieldsY * gridSize));
@@ -308,7 +350,7 @@ class UrbanStrip{
     if (hasBorder)
       currentBorderColor = highlightRed;
 
-    if (isEmpty)
+    if (isEmpty && draggedBuilding.lighted && canBuildLighted || isEmpty && !draggedBuilding.lighted)
       currentColor = highlightGreen;
     else
       currentColor = highlightRed;
@@ -319,6 +361,20 @@ class UrbanStrip{
     currentBorderColor = normalBorderColor;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
