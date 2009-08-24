@@ -11,8 +11,9 @@ class BuildingCounter extends ArrayList{
 
   // text position
   float x = 10;
-  float y = 30;
+  float y = 40;
   PFont font;
+  PFont fontBig;
 
   BuildingCounter(){
     super();
@@ -21,7 +22,8 @@ class BuildingCounter extends ArrayList{
       buildingList[i] = new ArrayList();
     }
 
-    font = loadFont("DIN_1451_Mittelschrift-20.vlw");
+    font = loadFont("DIN_1451_Mittelschrift-30.vlw");
+    fontBig = loadFont("DIN_1451_Mittelschrift-80.vlw");
   }
 
   void addBuilding(Building building, int buildDepth){
@@ -66,7 +68,7 @@ class BuildingCounter extends ArrayList{
   }
 
   void display(){
-    textFont(font, 20);
+    textFont(font, 30);
 
     fill(50);
     //    text("Archlecken", 100, 130);
@@ -84,15 +86,33 @@ class BuildingCounter extends ArrayList{
       // println("GA: "+buildingPlans[i].groundArea);
     }
     float gfz = bgf/52900.0;
-    gfz = round(gfz*10);
-    gfz/= 10;
+    //       println("GFZ: "+ gfz);
+
+    gfz = round(gfz*100);
+    gfz/= 100;
     text("BGF: "+bgf + " m²    Bebaute Fläche: " + areabuilt + " m²    GFZ: "+ gfz, x, y);
   }
 
   void pgDisplay(PGraphics pg){
-    pg.textFont(font, 20);
+    float[] values = this.pgDisplayHelper(pg);
+    pg.text("BGF: "+values[0] + " m²    Bebaute Fläche: " + values[1] + " m²    GFZ: "+ values[2], x, y);
+
+  }
+  
+  void historyDisplay(PGraphics pg){
+     float[] values = this.pgDisplayHelper(pg);
+     pg.textFont(fontBig, 80);
+      float yy = y;
+    y += 80;
+    pg.text("GFZ: "+ values[2], x, y);
+    y = yy;
+  }
+  
+  float[] pgDisplayHelper(PGraphics pg){
+    pg.textFont(font, 30);
 
     pg.fill(50);
+    
     int bgf =0;
     int areabuilt = 0;
 
@@ -102,12 +122,18 @@ class BuildingCounter extends ArrayList{
       // println("GA: "+buildingPlans[i].groundArea);
     }
     float gfz = bgf/52900.0;
-    gfz = round(gfz*10);
-    gfz/= 10;
-    pg.text("BGF: "+bgf + " m²    Bebaute Fläche: " + areabuilt + " m²    GFZ: "+ gfz, x, y);
-
+    gfz = round(gfz*100);
+    gfz/= 100;
+    
+    float[] values = new float[3];
+    values[0] = bgf;
+    values[1] = areabuilt;
+    values[2] = gfz;
+    
+    return values;
   }
 }
+
 
 
 

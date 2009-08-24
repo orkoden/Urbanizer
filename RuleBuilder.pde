@@ -19,7 +19,8 @@ Building[] buildingPlans;  // store building templates
 BuildingCounter constructedBuildings; 
 
 UrbanGround urbanGround;
-PGraphics pg;
+ImageHistory imageHistory;
+
 
 void setup()
 {
@@ -36,7 +37,7 @@ void setup()
   minim = new Minim(this);
   // load a file into an AudioSnippet
   constructionSound = minim.loadSnippet("constructionsound.mp3");
-  pg = createGraphics(950, 450, JAVA2D);
+  imageHistory = new ImageHistory();
 }
 
 void stop()
@@ -62,6 +63,7 @@ void draw()
   }
 
   urbanGround.display();
+  imageHistory.display();
   itemBox.draw();
   try{
     draggedBuilding.draw();
@@ -70,6 +72,7 @@ void draw()
   }
 
   constructedBuildings.display();
+
 }
 
 
@@ -100,19 +103,34 @@ void mouseDragged(){
 
 void keyPressed(){
   if (key == 's') { // press s to save current image to file
-    
+ 
+ // file drawing
+    PGraphics pg;
+    pg = createGraphics(950, 450, JAVA2D);
+
     pg.beginDraw();
 
     background(250);
     pg.smooth();
     constructedBuildings.pgDisplay(pg);
     urbanGround.pgDisplay(pg);
-    //    urbanGround.pgDisplayBuildings(pg);
     pg.endDraw();
 
     pg.save("construction_site_"+year()+month()+day()+hour()+minute()+second()+".png");
 
+// history drawing
+  PGraphics hpg;
+    hpg = createGraphics(950, 450, JAVA2D);
 
+    hpg.beginDraw();
+
+    background(250);
+    hpg.smooth();
+    urbanGround.pgDisplay(hpg);
+    constructedBuildings.historyDisplay(hpg);
+    hpg.endDraw();
+
+    imageHistory.add(hpg);
     //saveFrame("construction_site_###.png"); 
 
 
@@ -121,6 +139,8 @@ void keyPressed(){
     setup();
 
 }
+
+
 
 
 
