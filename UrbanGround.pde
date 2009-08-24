@@ -52,7 +52,7 @@ class UrbanGround{
 
     // mark strips with border
     int[] borderStrips = {
-      8, 36,37,48, 58, 70, 76                                                                    };
+      8, 36,37,48, 58, 70, 76            };
     for (int i= 0; i < borderStrips.length; i++){
       strips[borderStrips[i]].hasBorder = true;
     }
@@ -182,7 +182,7 @@ class UrbanGround{
       if (buildToDepth > strips[i].stripLength )  // find shortest strip
         buildToDepth = strips[i].stripLength;
     }
-    
+
     for(int i = (int)mousePos.x; i < ((int) mousePos.x + draggedBuilding.fieldsX) && i < strips.length; i++){  //highlighting
       if (i == (int)mousePos.x) strips[i].isBuildingRoot = true;  // set first strip as root for building
       strips[i].setBuilding(draggedBuilding, buildToDepth);        // set building to all strips
@@ -236,6 +236,20 @@ class UrbanGround{
     }
 
   }
+
+void pgDisplay(PGraphics pg){
+    pg.stroke(220);
+    pg.fill(120);
+
+    for ( int i = strips.length-1; i >= 0 ; i--){
+      strips[i].pgDisplay(pg);
+    }
+
+    for(int i=0; i < strips.length; i++){  
+      strips[i].pgDisplayBuilding(pg);
+    }
+
+}
 
   void calcBaseVectors(){
     x2 = new Vertex(1,0);
@@ -316,6 +330,7 @@ class UrbanStrip{
     }
   }
 
+
   void displayBuilding(){
     if (!isEmpty && this.isBuildingRoot){   
       // display building
@@ -347,6 +362,56 @@ class UrbanStrip{
     }
   }
 
+
+  void pgDisplay(PGraphics pg){
+    // display strip
+    pg.fill(currentColor);
+    pg.stroke(190);
+    pg.quad(corners[0].x, corners[0].y,
+    corners[1].x, corners[1].y,
+    corners[2].x, corners[2].y,
+    corners[3].x, corners[3].y
+      );
+
+    if(hasBorder){  // draw right border
+      pg.stroke(currentBorderColor);
+      pg.line(corners[1].x, corners[1].y,   corners[2].x, corners[2].y);
+    }
+    
+ 
+  }
+
+void pgDisplayBuilding(PGraphics pg){
+    // drawing buildings
+    
+     if (!isEmpty && this.isBuildingRoot){   
+      // display building
+      // copy building position
+      float buildX = this.building.x;
+      float buildY = this.building.y;
+
+      if (this.building.name.equals("Turm")){
+        //this.building.draw();
+        Vertex towerPos = new Vertex(corners[0].x, corners[0].y);
+        for (int i = 0; i <= buildToDepth / (this.building.fieldsY + 10); i++){
+          this.building.setCenter(corners[0].x + y2.x * ((this.building.fieldsY+ 10)*(i+1) -10) * gridSize, 
+          corners[0].y + y2.y * ((this.building.fieldsY+10)*(i+1) -10)* gridSize);
+          this.building.pgDisplay(pg);
+        }
+      }
+
+      else for (int i = 0; i< buildToDepth / this.building.fieldsY; i++){
+        this.building.setCenter((corners[0].x + y2.x * this.building.fieldsY* (i+1) * gridSize), 
+        (corners[0].y + y2.y * this.building.fieldsY *(i+1)* gridSize));
+        this.building.pgDisplay(pg);
+      }
+
+      // reset building view position to original pos
+      this.building.x = buildX;
+      this.building.y = buildY;
+    } 
+}
+
   void highlight(){
     if (hasBorder)
       currentBorderColor = highlightRed;
@@ -362,6 +427,9 @@ class UrbanStrip{
     currentBorderColor = normalBorderColor;
   }
 }
+
+
+
 
 
 

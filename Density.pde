@@ -1,5 +1,5 @@
 /**  Calculates statistical data
-*/
+ */
 
 class BuildingCounter extends ArrayList{
 
@@ -10,8 +10,8 @@ class BuildingCounter extends ArrayList{
   };
 
   // text position
-  float x = 0;
-  float y = 0;
+  float x = 10;
+  float y = 30;
   PFont font;
 
   BuildingCounter(){
@@ -22,7 +22,6 @@ class BuildingCounter extends ArrayList{
     }
 
     font = loadFont("DIN_1451_Mittelschrift-20.vlw");
-    textFont(font, 20);
   }
 
   void addBuilding(Building building, int buildDepth){
@@ -67,12 +66,14 @@ class BuildingCounter extends ArrayList{
   }
 
   void display(){
+    textFont(font, 20);
+
     fill(50);
     //    text("Archlecken", 100, 130);
-//    for(int i=0; i < buildingList.length; i++){
-//      String bla = nameList[i] + ": " + buildingList[i].size() + " ";
-//      text(bla, 10, 500 + i* 30);
-//    }
+    //    for(int i=0; i < buildingList.length; i++){
+    //      String bla = nameList[i] + ": " + buildingList[i].size() + " ";
+    //      text(bla, 10, 500 + i* 30);
+    //    }
 
     int bgf =0;
     int areabuilt = 0;
@@ -80,13 +81,35 @@ class BuildingCounter extends ArrayList{
     for(int i=0; i < buildingList.length - 1; i++){
       bgf += buildingList[i].size()*buildingPlans[i].bgf;
       areabuilt += buildingList[i].size()*buildingPlans[i].groundArea;
-     // println("GA: "+buildingPlans[i].groundArea);
+      // println("GA: "+buildingPlans[i].groundArea);
     }
-    text("BGF: "+bgf + "     Bebaute Fläche: " + areabuilt + "     GFZ: "+bgf/52900.0, 10, 30);
+    float gfz = bgf/52900.0;
+    gfz = round(gfz*10);
+    gfz/= 10;
+    text("BGF: "+bgf + " m²    Bebaute Fläche: " + areabuilt + " m²    GFZ: "+ gfz, x, y);
+  }
 
+  void pgDisplay(PGraphics pg){
+    pg.textFont(font, 20);
+
+    pg.fill(50);
+    int bgf =0;
+    int areabuilt = 0;
+
+    for(int i=0; i < buildingList.length - 1; i++){
+      bgf += buildingList[i].size()*buildingPlans[i].bgf;
+      areabuilt += buildingList[i].size()*buildingPlans[i].groundArea;
+      // println("GA: "+buildingPlans[i].groundArea);
+    }
+    float gfz = bgf/52900.0;
+    gfz = round(gfz*10);
+    gfz/= 10;
+    pg.text("BGF: "+bgf + " m²    Bebaute Fläche: " + areabuilt + " m²    GFZ: "+ gfz, x, y);
 
   }
 }
+
+
 
 
 

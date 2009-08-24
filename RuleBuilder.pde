@@ -19,6 +19,7 @@ Building[] buildingPlans;  // store building templates
 BuildingCounter constructedBuildings; 
 
 UrbanGround urbanGround;
+PGraphics pg;
 
 void setup()
 {
@@ -35,7 +36,7 @@ void setup()
   minim = new Minim(this);
   // load a file into an AudioSnippet
   constructionSound = minim.loadSnippet("constructionsound.mp3");
-
+  pg = createGraphics(950, 450, JAVA2D);
 }
 
 void stop()
@@ -99,24 +100,31 @@ void mouseDragged(){
 
 void keyPressed(){
   if (key == 's') { // press s to save current image to file
-//  PGraphics pg = createGraphics(900 600);
-//
-//  pg.beginDraw();
-//  pg.background(102);
-//  pg.stroke(255);
-//  pg.line(40, 40, mouseX, mouseY);
-//  pg.endDraw();
-//  image(pg, 10, 10); 
+    
+    pg.beginDraw();
+
+    background(250);
+    pg.smooth();
+    constructedBuildings.pgDisplay(pg);
+    urbanGround.pgDisplay(pg);
+    //    urbanGround.pgDisplayBuildings(pg);
+    pg.endDraw();
+
+    pg.save("construction_site_"+year()+month()+day()+hour()+minute()+second()+".png");
 
 
-//    saveFrame("construction_site_###.png"); 
-  
+    //saveFrame("construction_site_###.png"); 
 
-}
+
+  }
   if (key == 'n')  // press n for new build phase
     setup();
 
 }
+
+
+
+
 
 
 

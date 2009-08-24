@@ -114,6 +114,10 @@ class Building{
     // shape(buildingShape,x,y);
   } 
 
+  void pgDisplay(PGraphics pg){
+    pg.shape(buildingShape,x,y,sizeX,sizeY);  //does work 
+
+}
 
 }
 
