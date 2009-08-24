@@ -4,17 +4,29 @@
 	<!ENTITY ns_svg "http://www.w3.org/2000/svg">
 	<!ENTITY ns_xlink "http://www.w3.org/1999/xlink">
 ]>
-<svg  version="1.1" id="Ebene_1" xmlns="&ns_svg;" xmlns:xlink="&ns_xlink;" width="186.29" height="122.817"
-	 viewBox="0 0 186.29 122.817" overflow="visible" enable-background="new 0 0 186.29 122.817" xml:space="preserve">
-<polyline fill="none" stroke="#000000" stroke-width="0.4252" stroke-linecap="round" stroke-linejoin="round" points="
-	0.212,88.588 118.047,122.604 186.077,63.686 "/>
-<line fill="none" stroke="#000000" stroke-width="0.4252" stroke-linecap="round" stroke-linejoin="round" x1="186.077" y1="63.686" x2="186.077" y2="34.227"/>
-<line fill="none" stroke="#000000" stroke-width="0.4252" stroke-linecap="round" stroke-linejoin="round" x1="186.077" y1="34.227" x2="68.242" y2="0.212"/>
-<line fill="none" stroke="#000000" stroke-width="0.2126" stroke-linecap="round" stroke-linejoin="round" x1="118.047" y1="122.604" x2="118.047" y2="93.145"/>
-<line fill="none" stroke="#000000" stroke-width="0.2126" stroke-linecap="round" stroke-linejoin="round" x1="118.047" y1="93.145" x2="186.077" y2="34.227"/>
-<line fill="none" stroke="#000000" stroke-width="0.4252" stroke-linecap="round" stroke-linejoin="round" x1="0.212" y1="88.588" x2="0.212" y2="59.13"/>
-<line fill="none" stroke="#000000" stroke-width="0.2126" stroke-linecap="round" stroke-linejoin="round" x1="0.212" y1="59.13" x2="118.047" y2="93.145"/>
-<line fill="none" stroke="#000000" stroke-width="0.4252" stroke-linecap="round" stroke-linejoin="round" x1="68.242" y1="0.212" x2="0.212" y2="59.13"/>
-<polyline fill="none" stroke="#000000" stroke-width="0.2126" stroke-linecap="round" stroke-linejoin="round" points="
-	108.228,119.769 108.228,105.04 71.404,94.41 71.404,109.139 "/>
+<svg  version="1.1" xmlns="&ns_svg;" xmlns:xlink="&ns_xlink;" width="186.29" height="122.817" viewBox="0 0 186.29 122.817"
+	 overflow="visible" enable-background="new 0 0 186.29 122.817" xml:space="preserve">
+<g id="Ebene_2">
+	<polygon fill="#FFFFFF" points="0.212,88.588 0.212,59.13 68.242,0.212 186.077,34.227 186.077,63.686 118.047,122.604 	"/>
+</g>
+<g id="Ebene_1">
+	<polyline fill="none" stroke="#000000" stroke-width="0.4252" stroke-linecap="round" stroke-linejoin="round" points="
+		0.212,88.588 118.047,122.604 186.077,63.686 	"/>
+	
+		<line fill="none" stroke="#000000" stroke-width="0.4252" stroke-linecap="round" stroke-linejoin="round" x1="186.077" y1="63.686" x2="186.077" y2="34.227"/>
+	
+		<line fill="none" stroke="#000000" stroke-width="0.4252" stroke-linecap="round" stroke-linejoin="round" x1="186.077" y1="34.227" x2="68.242" y2="0.212"/>
+	
+		<line fill="none" stroke="#000000" stroke-width="0.2126" stroke-linecap="round" stroke-linejoin="round" x1="118.047" y1="122.604" x2="118.047" y2="93.145"/>
+	
+		<line fill="none" stroke="#000000" stroke-width="0.2126" stroke-linecap="round" stroke-linejoin="round" x1="118.047" y1="93.145" x2="186.077" y2="34.227"/>
+	
+		<line fill="none" stroke="#000000" stroke-width="0.4252" stroke-linecap="round" stroke-linejoin="round" x1="0.212" y1="88.588" x2="0.212" y2="59.13"/>
+	
+		<line fill="none" stroke="#000000" stroke-width="0.2126" stroke-linecap="round" stroke-linejoin="round" x1="0.212" y1="59.13" x2="118.047" y2="93.145"/>
+	
+		<line fill="none" stroke="#000000" stroke-width="0.4252" stroke-linecap="round" stroke-linejoin="round" x1="68.242" y1="0.212" x2="0.212" y2="59.13"/>
+	<polyline fill="none" stroke="#000000" stroke-width="0.2126" stroke-linecap="round" stroke-linejoin="round" points="
+		108.228,119.768 108.228,105.04 71.404,94.411 71.404,109.139 	"/>
+</g>
 </svg>

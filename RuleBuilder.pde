@@ -12,9 +12,11 @@ AudioSnippet constructionSound;
 
 
 ItemBox itemBox;
-Building draggedBuilding;
+Building draggedBuilding;  // currently dragged building
 
 Building[] buildingPlans;  // store building templates
+
+ArrayList constructedBuildings; 
 
 UrbanGround urbanGround;
 
@@ -27,6 +29,8 @@ void setup()
   itemBox = new ItemBox(80);
 
   urbanGround = new UrbanGround();
+
+  constructedBuildings = new ArrayList();
 
   minim = new Minim(this);
   // load a file into an AudioSnippet
@@ -48,8 +52,8 @@ void stop()
 void draw()
 {
   background(250);
- 
-  
+
+
   try{ // draw first for quick graphics update
     draggedBuilding.draw();
   }
@@ -85,7 +89,7 @@ void mouseDragged(){
     //    ground.mouseOverField();
     urbanGround.mouseOver(mouseX, mouseY);
     draggedBuilding.setCenter(mouseX,mouseY);
-  //   draggedBuilding.draw();
+    //   draggedBuilding.draw();
   }
   catch(Exception e){
   }
@@ -100,6 +104,7 @@ void keyPressed(){
     setup();
 
 }
+
 
 
 

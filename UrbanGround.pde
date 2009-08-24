@@ -163,11 +163,11 @@ class UrbanGround{
         }
       }
 
-      if(!strips[i].isEmpty ||                         // check if strip is free
+      if(!strips[i].isEmpty ||                                   // check if strip is free
       (strips[i].hasBorder && (i < ((int) mousePos.x + draggedBuilding.fieldsX -1) ) ) ||   // check if building is crossing a border
       mousePos.x + draggedBuilding.fieldsX > strips.length  ||  // check for right edge of Urbanground
-      strips[i].stripLength < draggedBuilding.fieldsY ||      //  check if all strips under building are long enough
-      (draggedBuilding.lighted && !strips[i].canBuildLighted)        //check if building is lighted and ground allows lighted building  
+      strips[i].stripLength < draggedBuilding.fieldsY ||        //  check if all strips under building are long enough
+      (draggedBuilding.lighted && !strips[i].canBuildLighted)   //check if building is lighted and ground allows lighted building  
       ){
         this.allStripsNoHighlight();
         return;  // cannot build so return
@@ -326,7 +326,7 @@ class UrbanStrip{
       if (this.building.name.equals("Turm")){
         //this.building.draw();
         Vertex towerPos = new Vertex(corners[0].x, corners[0].y);
-        for (int i = 0; i<  1 + buildToDepth / (this.building.fieldsY + 10); i++){
+        for (int i = 0; i <= buildToDepth / (this.building.fieldsY + 10); i++){
           this.building.setCenter(corners[0].x + y2.x * ((this.building.fieldsY+ 10)*(i+1) -10) * gridSize, 
           corners[0].y + y2.y * ((this.building.fieldsY+10)*(i+1) -10)* gridSize);
           this.building.draw();
