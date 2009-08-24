@@ -21,6 +21,9 @@ class Building{
   int buildHeight = 1;
   boolean lighted = false;  // true if outer facades need lighting
 
+  int groundArea = 0;  // Grundflaeche
+  int bgf = 0;  // Bruttogeschossflaeche
+
   Building(){
     name = "unnamed Building";
     buildingShape = loadShape("bot1.svg");
@@ -36,6 +39,9 @@ class Building{
     if(fromFile[5].equals("ja"))
       this.lighted = true;
 
+    this.groundArea = int(fromFile[6]);
+    this.bgf =int(fromFile[7]);
+
     // sizes still don' work correctly. because shape.width depends on fields x and y
     float ratio = buildingShape.height/buildingShape.width;
     sizeX = buildingShape.width/2.0;
@@ -43,7 +49,7 @@ class Building{
 
     this.centerOffsetY = centerOffset(fromFile[0]);
 
-    println("new building constructed name: "+ this.name + " fieldsX: "+ this.fieldsX + " fieldsY: "+ this.fieldsY + " height: "+this.buildHeight + " centerOffsetY: " + this.centerOffsetY);
+    println("new building constructed name: "+ this.name + " fieldsX: "+ this.fieldsX + " fieldsY: "+ this.fieldsY + " height: "+this.buildHeight + " centerOffsetY: " + this.centerOffsetY + " Grundfläche: " +this.groundArea);
   }
 
   Building(String name, PShape buildingShape){
@@ -96,6 +102,8 @@ class Building{
     clone.centerOffsetY = centerOffsetY;
     clone.buildHeight = buildHeight;
     clone.lighted = lighted;
+    clone.groundArea = groundArea;
+    clone.bgf = bgf;
     return clone;
   }
 
@@ -108,4 +116,6 @@ class Building{
 
 
 }
+
+
 

@@ -1,3 +1,6 @@
+/**  Calculates statistical data
+*/
+
 class BuildingCounter extends ArrayList{
 
   ArrayList[] buildingList;
@@ -66,12 +69,28 @@ class BuildingCounter extends ArrayList{
   void display(){
     fill(50);
     //    text("Archlecken", 100, 130);
-    for(int i=0; i < buildingList.length; i++){
-      String bla = nameList[i] + ": " + buildingList[i].size() + " ";
-      text(bla, 10, 500 + i* 30);
+//    for(int i=0; i < buildingList.length; i++){
+//      String bla = nameList[i] + ": " + buildingList[i].size() + " ";
+//      text(bla, 10, 500 + i* 30);
+//    }
+
+    int bgf =0;
+    int areabuilt = 0;
+
+    for(int i=0; i < buildingList.length - 1; i++){
+      bgf += buildingList[i].size()*buildingPlans[i].bgf;
+      areabuilt += buildingList[i].size()*buildingPlans[i].groundArea;
+     // println("GA: "+buildingPlans[i].groundArea);
     }
+    text("BGF: "+bgf + "     Bebaute Fläche: " + areabuilt + "     GFZ: "+bgf/52900.0, 10, 30);
+
+
   }
 }
+
+
+
+
 
 
 

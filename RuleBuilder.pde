@@ -98,8 +98,21 @@ void mouseDragged(){
 
 
 void keyPressed(){
-  if (key == 's')  // press s to save current image to file
-    saveFrame("construction_site_###.png"); 
+  if (key == 's') { // press s to save current image to file
+//  PGraphics pg = createGraphics(900 600);
+//
+//  pg.beginDraw();
+//  pg.background(102);
+//  pg.stroke(255);
+//  pg.line(40, 40, mouseX, mouseY);
+//  pg.endDraw();
+//  image(pg, 10, 10); 
+
+
+//    saveFrame("construction_site_###.png"); 
+  
+
+}
   if (key == 'n')  // press n for new build phase
     setup();
 
