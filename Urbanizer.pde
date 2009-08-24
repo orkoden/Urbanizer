@@ -110,8 +110,10 @@ void mouseDragged(){
   }
   if(bulldozer.over())
     bulldozer.dragged = true;
-  if (bulldozer.dragged)
+  if (bulldozer.dragged){
     bulldozer.bulldoze();
+    draggedBuilding = null;
+  }
 }
 
 
