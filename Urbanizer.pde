@@ -22,6 +22,8 @@ BuildingCounter constructedBuildings;
 UrbanGround urbanGround;
 ImageHistory imageHistory;
 
+Bulldozer bulldozer;
+
 
 void setup()
 {
@@ -40,6 +42,8 @@ void setup()
   constructionSound = minim.loadSnippet("constructionsound.mp3");
   buildingFailedSound = minim.loadSnippet("cantbuild.mp3");
   imageHistory = new ImageHistory();
+
+  bulldozer = new Bulldozer();
 }
 
 void stop()
@@ -75,7 +79,7 @@ void draw()
   }
 
   constructedBuildings.display();
-
+  bulldozer.display();
 }
 
 
@@ -88,10 +92,14 @@ void mouseReleased(){
     }
     draggedBuilding = null;          // no building dragged anymore
   }
+  bulldozer.release();
 }
 
 
 void mouseDragged(){
+  if(bulldozer.over())
+    bulldozer.dragged = true;
+
   try{
     //    ground.mouseOverField();
     urbanGround.mouseOver(mouseX, mouseY);
@@ -106,8 +114,8 @@ void mouseDragged(){
 
 void keyPressed(){
   if (key == 's') { // press s to save current image to file
- 
- // file drawing
+
+    // file drawing
     PGraphics pg;
     pg = createGraphics(950, 450, JAVA2D);
 
@@ -121,8 +129,8 @@ void keyPressed(){
 
     pg.save("construction_site_"+year()+month()+day()+hour()+minute()+second()+".png");
 
-// history drawing
-  PGraphics hpg;
+    // history drawing
+    PGraphics hpg;
     hpg = createGraphics(950, 450, JAVA2D);
 
     hpg.beginDraw();
@@ -142,6 +150,9 @@ void keyPressed(){
     setup();
 
 }
+
+
+
 
 
 
