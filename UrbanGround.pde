@@ -122,7 +122,7 @@ class UrbanGround{
     for(int i = (int)mousePos.x; i < ((int) mousePos.x + draggedBuilding.fieldsX) && i < strips.length; i++){  //highlighting
       strips[i].highlight();  // green or red highlight
 
-        for(int j = i - draggedBuilding.buildHeight; j < i + draggedBuilding.fieldsX + draggedBuilding.buildHeight; j++){
+        for(int j = i - draggedBuilding.buildHeight; j < i  + draggedBuilding.buildHeight +1 ; j++){  // check left and right to dragged building
         try{   
           if (strips[j].building.lighted ){
             strips[i].currentColor = strips[i].highlightRed;
@@ -152,8 +152,7 @@ class UrbanGround{
     // test if it can be built here
     for(int i = (int)mousePos.x; i < ((int) mousePos.x + draggedBuilding.fieldsX) && i < strips.length; i++){  // for all strips under building
       //check if there are lighted buildings in the neighborhood
-      //println(draggedBuilding.name + " is not lighted");
-      for(int j = i - draggedBuilding.buildHeight; j < i + draggedBuilding.fieldsX + draggedBuilding.buildHeight; j++){
+      for(int j = i - draggedBuilding.buildHeight; j < i  + draggedBuilding.buildHeight +1; j++){
         try{   
           if (strips[j].building.lighted){
             this.allStripsNoHighlight();
