@@ -67,7 +67,7 @@ class Building{
       return 8;
     else if(buildingName.equals("Box"))
       return 17;
- else if(buildingName.equals("BoxKlein"))
+    else if(buildingName.equals("BoxKlein"))
       return 9;
 
     else 
@@ -108,3 +108,4 @@ class Building{
 
 
 }
+

@@ -199,6 +199,8 @@ class UrbanGround{
       }
     }
     constructionSound();
+    constructedBuildings.addBuilding(draggedBuilding, buildToDepth);
+    constructedBuildings.toConsole();
   }
 
   /** calculate Array position from mouse coordinates

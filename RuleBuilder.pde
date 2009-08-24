@@ -16,7 +16,7 @@ Building draggedBuilding;  // currently dragged building
 
 Building[] buildingPlans;  // store building templates
 
-ArrayList constructedBuildings; 
+BuildingCounter constructedBuildings; 
 
 UrbanGround urbanGround;
 
@@ -30,7 +30,7 @@ void setup()
 
   urbanGround = new UrbanGround();
 
-  constructedBuildings = new ArrayList();
+  constructedBuildings = new BuildingCounter();
 
   minim = new Minim(this);
   // load a file into an AudioSnippet
@@ -68,7 +68,7 @@ void draw()
   catch(Exception ex){
   }
 
-
+  constructedBuildings.display();
 }
 
 
@@ -104,6 +104,7 @@ void keyPressed(){
     setup();
 
 }
+
 
 
 
