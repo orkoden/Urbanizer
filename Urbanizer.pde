@@ -8,7 +8,8 @@ import ddf.minim.effects.*;
 
 Minim minim;
 AudioSnippet constructionSound;
-
+AudioSnippet buildingFailed;
+AudioSnippet bulldozer;
 
 
 ItemBox itemBox;
