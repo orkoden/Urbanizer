@@ -11,3 +11,8 @@ void buildingFailedSound(){
 }
 
 
+void bulldozerSound(){
+
+    bulldozerSound.rewind();
+    bulldozerSound.play();
+}

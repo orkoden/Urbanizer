@@ -266,6 +266,9 @@ void pgDisplay(PGraphics pg){
 
 }
 
+/** Represents one strip of the construction site
+*/
+
 class UrbanStrip{
   Building building;
   boolean isBuildingRoot = false;    // the leftmost building is its root and responsible for drawing it

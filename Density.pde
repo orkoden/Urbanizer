@@ -55,10 +55,20 @@ class BuildingCounter extends ArrayList{
     else for( int i=0; i < buildDepth / building.fieldsY; i++){
       currentList.add(building);
     }
-
-
-
   }
+  
+  
+  void removeBuilding(Building toremove){
+    for(int i=0; i < buildingList.length; i++){
+      ArrayList currentList = buildingList[i];
+      for (int j=currentList.size()-1; j > 0; j--){
+        if(currentList.get(j) == toremove)
+          currentList.remove(toremove);
+      }
+    }
+  }
+
+  
 
   void toConsole(){
     for(int i=0; i < buildingList.length; i++){

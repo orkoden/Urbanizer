@@ -41,6 +41,7 @@ void setup()
   // load a file into an AudioSnippet
   constructionSound = minim.loadSnippet("constructionsound.mp3");
   buildingFailedSound = minim.loadSnippet("cantbuild.mp3");
+  bulldozerSound = minim.loadSnippet("destroy.wav");
   imageHistory = new ImageHistory();
 
   bulldozer = new Bulldozer();
@@ -51,6 +52,7 @@ void stop()
   // always close Minim audio classes
   constructionSound.close();
   buildingFailedSound.close();
+  bulldozerSound.close();
   // always stop Minim before exiting
   minim.stop();
 
@@ -97,8 +99,6 @@ void mouseReleased(){
 
 
 void mouseDragged(){
-  if(bulldozer.over())
-    bulldozer.dragged = true;
 
   try{
     //    ground.mouseOverField();
@@ -108,6 +108,10 @@ void mouseDragged(){
   }
   catch(Exception e){
   }
+  if(bulldozer.over())
+    bulldozer.dragged = true;
+  if (bulldozer.dragged)
+    bulldozer.bulldoze();
 }
 
 
@@ -150,6 +154,8 @@ void keyPressed(){
     setup();
 
 }
+
+
 
 
 
