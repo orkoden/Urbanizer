@@ -8,8 +8,8 @@ import ddf.minim.effects.*;
 
 Minim minim;
 AudioSnippet constructionSound;
-AudioSnippet buildingFailed;
-AudioSnippet bulldozer;
+AudioSnippet buildingFailedSound;
+AudioSnippet bulldozerSound;
 
 
 ItemBox itemBox;
@@ -38,6 +38,7 @@ void setup()
   minim = new Minim(this);
   // load a file into an AudioSnippet
   constructionSound = minim.loadSnippet("constructionsound.mp3");
+  buildingFailedSound = minim.loadSnippet("cantbuild.mp3");
   imageHistory = new ImageHistory();
 }
 
@@ -45,6 +46,7 @@ void stop()
 {
   // always close Minim audio classes
   constructionSound.close();
+  buildingFailedSound.close();
   // always stop Minim before exiting
   minim.stop();
 

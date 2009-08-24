@@ -146,6 +146,7 @@ class UrbanGround{
     }
     catch (Exception e){  
       this.allStripsNoHighlight();
+      
       return;
     }
 
@@ -156,6 +157,7 @@ class UrbanGround{
         try{   
           if (strips[j].building.lighted){
             this.allStripsNoHighlight();
+            buildingFailedSound();
             return;
           }
         }
