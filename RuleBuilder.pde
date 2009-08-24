@@ -100,6 +100,7 @@ void keyPressed(){
     
       if ( key == 'p' )
   {
+    constructionSound.rewind();
     constructionSound.play();
   }
 

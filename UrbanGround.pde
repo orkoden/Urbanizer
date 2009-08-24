@@ -161,6 +161,7 @@ class UrbanGround{
       strips[i].setBuilding(draggedBuilding, buildToDepth);        // set building to all strips
       strips[i].nohighlight();
     }
+    constructionSound();
   }
 
   /** calculate Array position from mouse coordinates
