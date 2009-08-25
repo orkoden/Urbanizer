@@ -1,3 +1,17 @@
+/** Urbanizer
+ * Eine interaktive Städtebausimulation.
+ *
+ *
+ * Entstanden im Rahmen der Diplomarbeit von Paul Lambeck in Architektur an der TU Berlin.
+ *
+ * Dieses Programm darf beliebig kopiert und weitergegeben werden.
+ *
+ * Alle Rechte vorbehalten. 
+ * 
+ * Programmierung © 2009 Jörg Bühmann   joergbuehmann@web.de
+ * Bild und Tondaten © 2009 Paul Lambeck   p_lambeck@yahoo.de  
+*/
+
 import processing.pdf.*;
 
 
