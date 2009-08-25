@@ -1,4 +1,4 @@
-class Bulldozer extends Building{
+class Bulldozer {
   PImage imageBulldozer;
 
   float x = width - 110;
