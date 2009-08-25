@@ -1,3 +1,5 @@
+import processing.pdf.*;
+
 
 // sound api
 import ddf.minim.signals.*;
@@ -5,6 +7,8 @@ import ddf.minim.*;
 import ddf.minim.analysis.*;
 import ddf.minim.effects.*;
 // end sound api
+
+
 
 Minim minim;
 AudioSnippet constructionSound;
@@ -27,8 +31,9 @@ Bulldozer bulldozer;
 
 void setup()
 {
-  size(1024,768); // final size for presentation
-  smooth();  
+  size(1024,768, P2D); // final size for presentation
+  smooth();
+  frameRate(60);  
   background(240);
   buildingsFromFile();    // read from file
   itemBox = new ItemBox(80);
@@ -64,8 +69,10 @@ void draw()
 {
   background(250);
 
-
+//
   try{ // draw first for quick graphics update
+     // draggedBuilding.setCenter(mouseX,mouseY);
+
     draggedBuilding.draw();
   }
   catch(Exception ex){
@@ -75,6 +82,8 @@ void draw()
   imageHistory.display();
   itemBox.draw();
   try{
+  //  draggedBuilding.setCenter(mouseX,mouseY);
+
     draggedBuilding.draw();
   }
   catch(Exception ex){
@@ -130,6 +139,7 @@ void keyPressed(){
     setup();
 
 }
+
 
 
 

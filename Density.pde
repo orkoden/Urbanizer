@@ -73,18 +73,17 @@ class BuildingCounter extends ArrayList{
   }
 
   void display(){
-    textFont(font, 30);
-
     fill(50);
+    textFont(font, 30);
+    
     float[] values = this.densityCalc();
 
     text("BGF: "+values[0] + " m²    Bebaute Fläche: " + values[1] + " m²    GFZ: "+ values[2], x, y);
   }
 
   void pgDisplay(PGraphics pg){
-       pg.textFont(font, 30);
-
- 
+    pg.fill(50);
+    pg.textFont(font, 30);
     float[] values = this.densityCalc();
     pg.text("BGF: "+values[0] + " m²    Bebaute Fläche: " + values[1] + " m²    GFZ: "+ values[2], x, y);
 

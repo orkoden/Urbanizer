@@ -23,18 +23,22 @@ class ImageSave extends Thread{
   }
 
   public void run(){
+    
  // file drawing
-    PGraphics pg;
-    pg = createGraphics(950, 450, JAVA2D);
-
-    pg.beginDraw();
-
-    background(250);
-    pg.smooth();
-    constructedBuildings.pgDisplay(pg);
-    urbanGround.pgDisplay(pg);
-    pg.endDraw();
     try{
+      PGraphics pg;
+      pg = createGraphics(950, 450, JAVA2D);
+  
+      pg.beginDraw();
+  
+      background(250);
+      pg.smooth();
+
+      constructedBuildings.pgDisplay(pg);
+      urbanGround.pgDisplay(pg);
+      
+      pg.endDraw();
+      
       pg.save("construction_site_"+year()+month()+day()+hour()+minute()+second()+".png");
     }
     catch(Exception e){  // saving might fail
@@ -53,6 +57,28 @@ class ImageSave extends Thread{
 
     imageHistory.add(hpg);
     //saveFrame("construction_site_###.png"); 
+  }
+  
+  void pdfSave(){
+   // file drawing
+    try{
+      PGraphics pdf;
+      pdf = createGraphics(950, 450, PDF, "construction_site_"+year()+month()+day()+hour()+minute()+second()+".pdf");
+  
+      pdf.beginDraw();
+  
+      background(250);
+      pdf.smooth();
+
+      constructedBuildings.pgDisplay(pdf);
+      urbanGround.pgDisplay(pdf);
+      
+      pdf.dispose();
+      pdf.endDraw();
+      
+    }
+    catch(Exception e){  // saving might fail
+    }
   }
 }
 
