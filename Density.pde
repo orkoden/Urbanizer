@@ -3,8 +3,8 @@
 
 class BuildingCounter extends ArrayList{
 
-  ArrayList[] buildingList;
-  ArrayList currentList;
+  int[] buildingCounter;
+
   String[] nameList = {
     "Turm","Scheibe","Block","Patio","Reihe","Frei","Box","BoxKlein", "Andere"
   };
@@ -17,79 +17,57 @@ class BuildingCounter extends ArrayList{
 
   BuildingCounter(){
     super();
-    buildingList = new ArrayList[9];
-    for(int i=0; i < buildingList.length; i++){
-      buildingList[i] = new ArrayList();
-    }
+    buildingCounter = new int[nameList.length -1];  // dont count andere buildings
 
     font = loadFont("DIN_1451_Mittelschrift-30.vlw");
     fontBig = loadFont("DIN_1451_Mittelschrift-80.vlw");
   }
 
-  void addBuilding(Building building, int buildDepth){
-    if(building.name.equals("Turm"))
-      currentList = buildingList[0];
-    else if(building.name.equals("Scheibe"))
-      currentList = buildingList[1];
-    else if(building.name.equals("Block"))
-      currentList = buildingList[2];
-    else if(building.name.equals("Patio"))
-      currentList = buildingList[3];
-    else if(building.name.equals("Reihe"))
-      currentList = buildingList[4];
-    else if(building.name.equals("Frei"))
-      currentList = buildingList[5];
-    else if(building.name.equals("Box"))
-      currentList = buildingList[6];
-    else if(building.name.equals("BoxKlein"))
-      currentList = buildingList[7];
-    else 
-      currentList = buildingList[8];
-
-
-    if (building.name.equals("Turm")){
-      for (int i = 0; i <= buildDepth / (building.fieldsY + 10); i++){     
-        currentList.add(building);
+  int getIndexForName(String buildingName){
+    for (int i=0; i < nameList.length; i++){
+      if (nameList[i].equals(buildingName)){
+        return i;
       }
     }
-    else for( int i=0; i < buildDepth / building.fieldsY; i++){
-      currentList.add(building);
+    
+    return -1;  // building name not found
+  }
+
+  void addBuilding(Building building, int buildDepth){
+   int index = getIndexForName(building.name);
+    if (index < 0)  // return if building is of type andere
+        return;
+        
+    if (index == 0){  // building is a tower
+      buildingCounter[index] += (1+( buildDepth /(building.fieldsY + 10)));
+    }
+    else {
+       buildingCounter[index] += buildDepth / building.fieldsY;
     }
   }
   
   
-  void removeBuilding(Building toremove){
+  void removeBuilding(Building building, int buildDepth){
+   int index = getIndexForName(building.name);
+    if (index < 0)  // return if building is of type andere
+        return;
+        
+    if (index == 0){  // building is a tower
+      buildingCounter[index] -= (1+( buildDepth /(building.fieldsY + 10)));
+    }
+    else {
+       buildingCounter[index] -= buildDepth / building.fieldsY;
+    }
     
-   if(toremove.name.equals("Turm"))
-      currentList = buildingList[0];
-    else if(toremove.name.equals("Scheibe"))
-      currentList = buildingList[1];
-    else if(toremove.name.equals("Block"))
-      currentList = buildingList[2];
-    else if(toremove.name.equals("Patio"))
-      currentList = buildingList[3];
-    else if(toremove.name.equals("Reihe"))
-      currentList = buildingList[4];
-    else if(toremove.name.equals("Frei"))
-      currentList = buildingList[5];
-    else if(toremove.name.equals("Box"))
-      currentList = buildingList[6];
-    else if(toremove.name.equals("BoxKlein"))
-      currentList = buildingList[7];
-    else 
-      currentList = buildingList[8];
- 
-      for (int j=currentList.size()-1; j > 0; j--){
-        if(currentList.get(j) == toremove)
-          currentList.remove(toremove);
-      }
+    if (buildingCounter[index] < 0)
+      buildingCounter[index] =0;
   }
 
   
 
   void toConsole(){
-    for(int i=0; i < buildingList.length; i++){
-      print(nameList[i] + ": " + buildingList[i].size() + " ");
+    for(int i=0; i < buildingCounter.length; i++){
+      print(nameList[i] + ": " + buildingCounter[i] + " ");
     }
 
   }
@@ -98,54 +76,38 @@ class BuildingCounter extends ArrayList{
     textFont(font, 30);
 
     fill(50);
-    //    text("Archlecken", 100, 130);
-    //    for(int i=0; i < buildingList.length; i++){
-    //      String bla = nameList[i] + ": " + buildingList[i].size() + " ";
-    //      text(bla, 10, 500 + i* 30);
-    //    }
+    float[] values = this.densityCalc();
 
-    int bgf =0;
-    int areabuilt = 0;
-
-    for(int i=0; i < buildingList.length - 1; i++){
-      bgf += buildingList[i].size()*buildingPlans[i].bgf;
-      areabuilt += buildingList[i].size()*buildingPlans[i].groundArea;
-      // println("GA: "+buildingPlans[i].groundArea);
-    }
-    float gfz = bgf/52900.0;
-    //       println("GFZ: "+ gfz);
-
-    gfz = round(gfz*100);
-    gfz/= 100;
-    text("BGF: "+bgf + " m²    Bebaute Fläche: " + areabuilt + " m²    GFZ: "+ gfz, x, y);
+    text("BGF: "+values[0] + " m²    Bebaute Fläche: " + values[1] + " m²    GFZ: "+ values[2], x, y);
   }
 
   void pgDisplay(PGraphics pg){
-    float[] values = this.pgDisplayHelper(pg);
+       pg.textFont(font, 30);
+
+ 
+    float[] values = this.densityCalc();
     pg.text("BGF: "+values[0] + " m²    Bebaute Fläche: " + values[1] + " m²    GFZ: "+ values[2], x, y);
 
   }
   
   void historyDisplay(PGraphics pg){
-     float[] values = this.pgDisplayHelper(pg);
+     float[] values = this.densityCalc();
+     pg.fill(50);
      pg.textFont(fontBig, 80);
-      float yy = y;
+     float yy = y;
     y += 80;
     pg.text("GFZ: "+ values[2], x, y);
     y = yy;
   }
   
-  float[] pgDisplayHelper(PGraphics pg){
-    pg.textFont(font, 30);
-
-    pg.fill(50);
+  float[] densityCalc(){
     
     int bgf =0;
     int areabuilt = 0;
 
-    for(int i=0; i < buildingList.length - 1; i++){
-      bgf += buildingList[i].size()*buildingPlans[i].bgf;
-      areabuilt += buildingList[i].size()*buildingPlans[i].groundArea;
+    for(int i=0; i < buildingCounter.length; i++){
+      bgf += buildingCounter[i]*buildingPlans[i].bgf;
+      areabuilt += buildingCounter[i]*buildingPlans[i].groundArea;
       // println("GA: "+buildingPlans[i].groundArea);
     }
     float gfz = bgf/52900.0;

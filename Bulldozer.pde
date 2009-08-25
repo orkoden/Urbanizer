@@ -17,6 +17,8 @@ class Bulldozer extends Building{
     try{
       gridPos = urbanGround.calcMousePos(mouseX,mouseY);
       Building toDestroy = urbanGround.strips[(int)gridPos.x].building;
+      int buildDepth = 0;
+      
       int toDestroySizeX = toDestroy.fieldsX;
       for( int i= (int)gridPos.x - toDestroySizeX; i < (int)gridPos.x+toDestroySizeX; i++){
         try{       
@@ -26,6 +28,7 @@ class Bulldozer extends Building{
             urbanGround.strips[i].isEmpty = true;
             urbanGround.strips[i].isBuildingRoot = false;
             urbanGround.strips[i].canBuildLighted = true;
+            buildDepth = urbanGround.strips[i].buildToDepth;
           }
         }
         catch(Exception e){  // over edge of ground
@@ -44,7 +47,7 @@ class Bulldozer extends Building{
       }
 
       // play bulldozing sound
-      constructedBuildings.removeBuilding(toDestroy);
+      constructedBuildings.removeBuilding(toDestroy, buildDepth);
       bulldozerSound();
     }
     catch(Exception e){  // can't bulldozer, not over grid

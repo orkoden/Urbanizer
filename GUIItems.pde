@@ -1,4 +1,7 @@
 
+/**  An itemBox contains several clickable buttons
+
+*/
 class ItemBox{
   int x,y = 10; 
   int boxWidth = 100;
