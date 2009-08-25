@@ -45,7 +45,7 @@ void setup()
   minim = new Minim(this);
   // load a file into an AudioSnippet
   constructionSound = minim.loadSnippet("constructionsound.mp3");
-  buildingFailedSound = minim.loadSnippet("cantbuild.mp3");
+  buildingFailedSound = minim.loadSnippet("cantbuildbuzz.wav");
   bulldozerSound = minim.loadSnippet("destroy.wav");
   imageHistory = new ImageHistory();
 

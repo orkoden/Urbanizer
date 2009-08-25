@@ -64,7 +64,7 @@ class ImageSave extends Thread{
     try{
       PGraphics pdf;
       pdf = createGraphics(950, 450, PDF, "construction_site_"+year()+month()+day()+hour()+minute()+second()+".pdf");
-  
+      pdf.textMode(SHAPE);
       pdf.beginDraw();
   
       background(250);
