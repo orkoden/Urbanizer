@@ -59,13 +59,30 @@ class BuildingCounter extends ArrayList{
   
   
   void removeBuilding(Building toremove){
-    for(int i=0; i < buildingList.length; i++){
-      ArrayList currentList = buildingList[i];
+    
+   if(toremove.name.equals("Turm"))
+      currentList = buildingList[0];
+    else if(toremove.name.equals("Scheibe"))
+      currentList = buildingList[1];
+    else if(toremove.name.equals("Block"))
+      currentList = buildingList[2];
+    else if(toremove.name.equals("Patio"))
+      currentList = buildingList[3];
+    else if(toremove.name.equals("Reihe"))
+      currentList = buildingList[4];
+    else if(toremove.name.equals("Frei"))
+      currentList = buildingList[5];
+    else if(toremove.name.equals("Box"))
+      currentList = buildingList[6];
+    else if(toremove.name.equals("BoxKlein"))
+      currentList = buildingList[7];
+    else 
+      currentList = buildingList[8];
+ 
       for (int j=currentList.size()-1; j > 0; j--){
         if(currentList.get(j) == toremove)
           currentList.remove(toremove);
       }
-    }
   }
 
   

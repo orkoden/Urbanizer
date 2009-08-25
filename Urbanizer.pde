@@ -121,41 +121,18 @@ void mouseDragged(){
 void keyPressed(){
   if (key == 's') { // press s to save current image to file
 
-    // file drawing
-    PGraphics pg;
-    pg = createGraphics(950, 450, JAVA2D);
-
-    pg.beginDraw();
-
-    background(250);
-    pg.smooth();
-    constructedBuildings.pgDisplay(pg);
-    urbanGround.pgDisplay(pg);
-    pg.endDraw();
-
-    pg.save("construction_site_"+year()+month()+day()+hour()+minute()+second()+".png");
-
-    // history drawing
-    PGraphics hpg;
-    hpg = createGraphics(950, 450, JAVA2D);
-
-    hpg.beginDraw();
-
-    background(250);
-    hpg.smooth();
-    urbanGround.pgDisplay(hpg);
-    constructedBuildings.historyDisplay(hpg);
-    hpg.endDraw();
-
-    imageHistory.add(hpg);
-    //saveFrame("construction_site_###.png"); 
-
+    // run image savin in a new thread
+    ImageSave imageSave = new ImageSave();
+    imageSave.run();
 
   }
   if (key == 'n')  // press n for new build phase
     setup();
 
 }
+
+
+
 
 
 

@@ -52,7 +52,7 @@ class UrbanGround{
 
     // mark strips with border
     int[] borderStrips = {
-      8, 36,37,48, 58, 70, 76            };
+      8, 36,37,48, 58, 70, 76                };
     for (int i= 0; i < borderStrips.length; i++){
       strips[borderStrips[i]].hasBorder = true;
     }
@@ -146,7 +146,7 @@ class UrbanGround{
     }
     catch (Exception e){  
       this.allStripsNoHighlight();
-      
+
       return;
     }
 
@@ -171,6 +171,8 @@ class UrbanGround{
       strips[i].stripLength < draggedBuilding.fieldsY ||        //  check if all strips under building are long enough
       (draggedBuilding.lighted && !strips[i].canBuildLighted)   //check if building is lighted and ground allows lighted building  
       ){
+        buildingFailedSound();
+
         this.allStripsNoHighlight();
         return;  // cannot build so return
       }
@@ -239,7 +241,7 @@ class UrbanGround{
 
   }
 
-void pgDisplay(PGraphics pg){
+  void pgDisplay(PGraphics pg){
     pg.stroke(220);
     pg.fill(120);
 
@@ -251,7 +253,7 @@ void pgDisplay(PGraphics pg){
       strips[i].pgDisplayBuilding(pg);
     }
 
-}
+  }
 
   void calcBaseVectors(){
     x2 = new Vertex(1,0);
@@ -267,7 +269,7 @@ void pgDisplay(PGraphics pg){
 }
 
 /** Represents one strip of the construction site
-*/
+ */
 
 class UrbanStrip{
   Building building;
@@ -382,14 +384,14 @@ class UrbanStrip{
       pg.stroke(currentBorderColor);
       pg.line(corners[1].x, corners[1].y,   corners[2].x, corners[2].y);
     }
-    
- 
+
+
   }
 
-void pgDisplayBuilding(PGraphics pg){
+  void pgDisplayBuilding(PGraphics pg){
     // drawing buildings
-    
-     if (!isEmpty && this.isBuildingRoot){   
+
+    if (!isEmpty && this.isBuildingRoot){   
       // display building
       // copy building position
       float buildX = this.building.x;
@@ -415,7 +417,7 @@ void pgDisplayBuilding(PGraphics pg){
       this.building.x = buildX;
       this.building.y = buildY;
     } 
-}
+  }
 
   void highlight(){
     if (hasBorder)
@@ -432,6 +434,7 @@ void pgDisplayBuilding(PGraphics pg){
     currentBorderColor = normalBorderColor;
   }
 }
+
 
 
 

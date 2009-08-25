@@ -129,9 +129,9 @@ class BuildingButton extends Button{
   void update(){
     super.update();
     if (over() && mousePressed){            // test if this button is clicked
-      building.setCenter(mouseX,mouseY);  
       draggedBuilding = building.clone(); // create draggable building
-      // spÃ¤ter hier neues building object erstellen
+      draggedBuilding.setCenter(mouseX,mouseY);  
+     
     }
   }
 
