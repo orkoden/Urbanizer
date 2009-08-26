@@ -2,7 +2,7 @@
  * Eine interaktive Städtebausimulation.
  *
  *
- * Entstanden im Rahmen der Diplomarbeit von Paul Lambeck in Architektur an der TU Berlin.
+ * Entstanden im Rahmen der Diplomarbeit von Paul Lambeck und Philipp Keiß in Architektur an der TU Berlin.
  *
  * Dieses Programm darf beliebig kopiert und weitergegeben werden.
  *
@@ -10,7 +10,7 @@
  * 
  * Programmierung © 2009 Jörg Bühmann   joergbuehmann@web.de
  * Bild und Tondaten © 2009 Paul Lambeck   p_lambeck@yahoo.de  
-*/
+ */
 
 import processing.pdf.*;
 
@@ -42,6 +42,8 @@ ImageHistory imageHistory;
 
 Bulldozer bulldozer;
 
+Splash splash;
+boolean showSplash = true;
 
 void setup()
 {
@@ -49,6 +51,8 @@ void setup()
   smooth();
   frameRate(60);  
   background(240);
+  splash = new Splash();
+
   buildingsFromFile();    // read from file
   itemBox = new ItemBox(80);
 
@@ -83,9 +87,11 @@ void draw()
 {
   background(250);
 
-//
+  if(showSplash)  splash.display();
+
+  //
   try{ // draw first for quick graphics update
-     // draggedBuilding.setCenter(mouseX,mouseY);
+    // draggedBuilding.setCenter(mouseX,mouseY);
 
     draggedBuilding.draw();
   }
@@ -96,7 +102,7 @@ void draw()
   imageHistory.display();
   itemBox.draw();
   try{
-  //  draggedBuilding.setCenter(mouseX,mouseY);
+    //  draggedBuilding.setCenter(mouseX,mouseY);
 
     draggedBuilding.draw();
   }
@@ -105,6 +111,7 @@ void draw()
 
   constructedBuildings.display();
   bulldozer.display();
+
 }
 
 
@@ -139,6 +146,9 @@ void mouseDragged(){
   }
 }
 
+void mousePressed(){
+  showSplash = false;
+}
 
 
 void keyPressed(){
@@ -149,10 +159,13 @@ void keyPressed(){
     imageSave.run();
 
   }
-  if (key == 'n')  // press n for new build phase
+  if (key == 'n'){  // press n for new build phase
     setup();
-
+    showSplash = true;  
+  }
 }
+
+
 
 
 

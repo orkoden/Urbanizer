@@ -18,7 +18,7 @@ class Bulldozer {
       gridPos = urbanGround.calcMousePos(mouseX,mouseY);
       Building toDestroy = urbanGround.strips[(int)gridPos.x].building;
       int buildDepth = 0;
-      
+
       int toDestroySizeX = toDestroy.fieldsX;
       for( int i= (int)gridPos.x - toDestroySizeX; i < (int)gridPos.x+toDestroySizeX; i++){
         try{       
@@ -80,6 +80,7 @@ class Bulldozer {
   }
 
 }
+
 
 
 
