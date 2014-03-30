@@ -26,3 +26,10 @@ License
 -------
 
 Do what you want with the code. Leave the copyright notice intact though. If you really want to do something with this, ask me joergbuehmann@gmail.com to choose a proper license.
+
+
+Known Issues
+------------
+
+Does not work with Processing 2.0.
+See also https://github.com/orkoden/Urbanizer/issues
