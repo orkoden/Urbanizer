@@ -7,8 +7,8 @@ Entstanden im Rahmen der Diplomarbeit "Offenes Planungssytem für den Wriezener 
 An interactive city planning simulation
 Created for the Master thesis in architecture "Open Planning System for the Wriezener Train Station" by Paul Lambeck and Philipp Keiß at Technische Universität Berlin.
 
-Das Programm ist im Ordner "website release" verfügbar zum Download.
-You can download the application from the "website release" folder.
+Das Programm ist im Ordner [website release](https://github.com/orkoden/Urbanizer/tree/RC/website%20release) verfügbar zum Download für Mac, Linux, Windows..
+You can download the application from the [website release](https://github.com/orkoden/Urbanizer/tree/RC/website%20release) folder for Mac, Linux, Windows..
 
 
 Instruction
@@ -29,3 +29,10 @@ License
 -------
 
 Do what you want with the code. 
+
+
+Known Issues
+------------
+
+Does not work with Processing 2.0.
+See also https://github.com/orkoden/Urbanizer/issues
