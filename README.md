@@ -22,7 +22,10 @@ Drag a building from the list on the right onto the construction site. You can o
 Save a state with the s key. A picture is saved a png to the folder of the program. 
 Restart with the n key.
 
+![](Screenshot.png)
+
+
 License
 -------
 
-Do what you want with the code. Leave the copyright notice intact though. If you really want to do something with this, ask me joergbuehmann@gmail.com to choose a proper license.
+Do what you want with the code. 
