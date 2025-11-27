@@ -10,6 +10,9 @@ Created for the Master thesis in architecture "Open Planning System for the Wrie
 Das Programm ist im Ordner [website release](https://github.com/orkoden/Urbanizer/tree/RC/website%20release) verfügbar zum Download für Mac, Linux, Windows..
 You can download the application from the [website release](https://github.com/orkoden/Urbanizer/tree/RC/website%20release) folder for Mac, Linux, Windows..
 
+Urbanizer requires Java 1.5 or newer installed on your operating system.
+
+The Mac release no longer runs on current versions of macOS, I haven't tested Windoes. You can download the Linux version instead. After unpacking the zip file, double click on `Urbanizer/Urbanizer` to start the shell script that launched Urbanizer. If that doesnt work try running it from the Terminal. 
 
 Instruction
 -----------
